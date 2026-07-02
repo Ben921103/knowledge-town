@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-Hant"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>知識系統 1:1 代建｜白澤 — baize.systems</title>
+<meta name="description" content="給創作者、教練、顧問：把散落在筆記、文件、對話裡的東西，整理成找得到、維護得住、AI 用得上的知識系統。">
+<style>
+ :root{--ink:#3a2f23;--gold:#c9a14a;--gold2:#ffd877;--panel:#fbf6ea;--line:#e3d7bd;--navy:#0e1726;--navy2:#11233f;}
+ *{box-sizing:border-box;}
+ body{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:var(--navy);color:#e8ddc2;line-height:1.75;}
+ a{color:var(--gold2);}
+ .wrap{max-width:860px;margin:0 auto;padding:0 22px;}
+ /* nav */
+ .nav{display:flex;align-items:center;gap:10px;padding:16px 22px;max-width:860px;margin:0 auto;font-size:14px;color:#c9bb9c;}
+ .nav a.home{color:#e8ddc2;text-decoration:none;font-weight:700;}
+ .nav .sp{flex:1;}
+ /* hero */
+ .hero{text-align:center;padding:44px 0 34px;background:linear-gradient(180deg,var(--navy2),var(--navy));}
+ .hero h1{font-size:clamp(23px,4.6vw,33px);line-height:1.45;margin:0 auto 14px;max-width:760px;color:#f3e7cc;letter-spacing:.5px;}
+ .hero h1 em{font-style:normal;color:var(--gold2);}
+ .hero p.sub{max-width:640px;margin:0 auto 24px;color:#c9bb9c;font-size:16.5px;}
+ .ctaRow{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+ .btn{display:inline-block;padding:13px 26px;border-radius:11px;text-decoration:none;font-weight:800;font-size:16px;transition:.15s;box-shadow:0 6px 16px rgba(0,0,0,.4);}
+ .btn.gold{background:var(--gold);color:#241a10;}
+ .btn.ghost{background:transparent;color:#e8ddc2;border:1.5px solid #4a5a75;}
+ .btn:hover{transform:translateY(-2px);filter:brightness(1.07);}
+ .hero .note{font-size:13px;color:#8fa0b8;margin-top:14px;}
+ /* sections */
+ section{padding:40px 0 8px;}
+ h2{font-size:22px;color:#f3e7cc;margin:0 0 18px;display:flex;align-items:center;gap:10px;}
+ h2::before{content:"";width:6px;height:24px;border-radius:3px;background:var(--gold);}
+ .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:14px;}
+ .card{background:rgba(255,255,255,.045);border:1px solid #26354e;border-radius:13px;padding:18px 20px;font-size:15px;color:#d7cbaa;}
+ .card b{color:#f3e7cc;display:block;margin-bottom:6px;font-size:15.5px;}
+ .punch{background:#182742;border-left:4px solid var(--gold);border-radius:0 11px 11px 0;padding:14px 20px;margin:18px 0 0;color:#e8ddc2;font-size:15.5px;}
+ /* why me stats */
+ .stats{display:flex;gap:12px;flex-wrap:wrap;margin:18px 0 0;}
+ .stat{flex:1;min-width:150px;background:#182742;border-radius:12px;padding:16px;text-align:center;}
+ .stat .n{font-size:24px;font-weight:900;color:var(--gold2);}
+ .stat .t{font-size:13px;color:#c9bb9c;margin-top:3px;}
+ /* pricing */
+ .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+ .plan{background:var(--panel);color:var(--ink);border-radius:15px;padding:24px;position:relative;box-shadow:0 12px 32px rgba(0,0,0,.4);}
+ .plan.hot{outline:2.5px solid var(--gold);}
+ .plan .tag{position:absolute;top:-12px;right:16px;background:var(--gold);color:#241a10;font-size:12.5px;font-weight:800;padding:4px 12px;border-radius:999px;}
+ .plan h3{margin:0 0 4px;font-size:19px;}
+ .plan .price{font-size:27px;font-weight:900;margin:6px 0 2px;}
+ .plan .price small{font-size:14px;font-weight:600;color:#8a795c;}
+ .plan .founding{color:#b0812a;font-weight:800;font-size:14.5px;margin-bottom:12px;}
+ .plan ul{margin:12px 0 0;padding-left:20px;font-size:14.5px;color:#5a4d34;}
+ .plan ul li{margin-bottom:7px;}
+ .honest{background:rgba(255,255,255,.05);border:1px dashed #3a4a63;border-radius:12px;padding:15px 20px;margin-top:18px;font-size:14.5px;color:#c9bb9c;}
+ .honest b{color:#f3e7cc;}
+ /* diff table */
+ table{border-collapse:collapse;width:100%;font-size:14.5px;background:rgba(255,255,255,.03);border-radius:12px;overflow:hidden;}
+ th,td{border:1px solid #26354e;padding:11px 14px;text-align:left;vertical-align:top;color:#d7cbaa;}
+ th{background:#182742;color:#f3e7cc;font-size:14px;}
+ td:last-child{color:#ffe9ad;}
+ /* final cta */
+ .final{margin:44px 0 0;background:linear-gradient(180deg,#182742,#101c31);border-radius:17px;padding:34px 26px;text-align:center;}
+ .final h2{justify-content:center;}
+ .final h2::before{display:none;}
+ .final p{color:#c9bb9c;max-width:560px;margin:0 auto 20px;font-size:15.5px;}
+ footer{margin-top:50px;padding:22px;text-align:center;font-size:12.5px;color:#5f7091;border-top:1px solid #1c2a42;}
+ footer a{color:#8fa0b8;}
+</style></head>
+<body>
+
+<div class="nav"><a class="home" href="/">⛲ 知識城鎮</a><span>／</span><span>1:1 代建服務</span><span class="sp"></span><a href="https://www.threads.net/@baize.knows" target="_blank" rel="noopener">Threads @baize.knows</a></div>
+
+<div class="hero">
+ <div class="wrap">
+  <h1>我幫創作者、教練、顧問，把散落在筆記、文件、對話裡的東西，<br>整理成「<em>找得到、維護得住、AI 用得上</em>」的知識系統</h1>
+  <p class="sub">不是再給你一個三週後沒人維護的漂亮模板——是一套你維護得下去、而且 AI 真的用得動的系統。</p>
+  <div class="ctaRow">
+   <a class="btn gold" href="https://forms.gle/DFunwiXhfJ5aYSy66" target="_blank" rel="noopener">預約免費 15 分鐘診斷</a>
+   <a class="btn ghost" href="/">先看我的真實系統 demo →</a>
+  </div>
+  <p class="note">診斷不綁約：盤完現狀你會拿到一份具體建議，合不合作都歸你。</p>
+ </div>
+</div>
+
+<div class="wrap">
+
+<section>
+ <h2>你是不是也這樣</h2>
+ <div class="cards">
+  <div class="card"><b>存了一堆，找不到</b>買了一堆工具、存了一堆筆記，要用的時候還是什麼都找不到。</div>
+  <div class="card"><b>模板兩個月就荒廢</b>Notion 模板做得很漂亮，兩個月後又亂回去，最後沒人維護。</div>
+  <div class="card"><b>AI 讀不懂你的庫</b>想讓 ChatGPT／Claude 幫你工作，它卻抓不到重點、答非所問。</div>
+ </div>
+ <div class="punch">問題從來不是工具，是沒有「什麼放哪、怎麼維護」的規則——所以系統一定腐化。<b>這正是我修的那一段。</b></div>
+</section>
+
+<section>
+ <h2>為什麼是我</h2>
+ <p style="color:#d7cbaa;font-size:15.5px;margin:0;">我自己每天跑一套有治理規則、有版本控制、有 AI 協作分工的知識系統。我交付給你的方法，就是我自己在用的那一套——你現在看的這個網站，就是我系統的<a href="/">互動 demo</a>。</p>
+ <div class="stats">
+  <div class="stat"><div class="n">4 個月</div><div class="t">持續運轉不斷更</div></div>
+  <div class="stat"><div class="n">100+ 篇</div><div class="t">結構化筆記互連成網</div></div>
+  <div class="stat"><div class="n">每日</div><div class="t">自動化在背景執行</div></div>
+ </div>
+</section>
+
+<section>
+ <h2>服務內容</h2>
+ <div class="plans">
+  <div class="plan">
+   <h3>A・診斷諮詢</h3>
+   <div class="price">NT$2,000 <small>／單次</small></div>
+   <div class="founding">Founding 前 3 位：NT$1,000</div>
+   <ul>
+    <li>60–90 分鐘通話：盤點你現有的工具、痛點、領域</li>
+    <li>給你一張「該怎麼放」的架構建議＋行動清單</li>
+    <li>這份規劃歸你，之後有沒有繼續合作都一樣</li>
+   </ul>
+  </div>
+  <div class="plan hot">
+   <span class="tag">主力方案</span>
+   <h3>B・代建基礎包</h3>
+   <div class="price">NT$8,000 <small>／約一週交付</small></div>
+   <div class="founding">Founding 前 3 位：NT$4,000（換具名見證）</div>
+   <ul>
+    <li>客製分類架構（Notion 或 Obsidian——要隱私與檔案自有，選 Obsidian）</li>
+    <li>「什麼放哪、怎麼整理」的輕量維護規則——防腐化的關鍵</li>
+    <li>用<b>你自己的資料</b>實跑 1–2 篇「入庫 → AI 對話」demo</li>
+    <li>30 分鐘交付培訓（錄影留存）＋最低維持流程單頁</li>
+   </ul>
+  </div>
+ </div>
+ <div class="honest"><b>我不做：</b>從零寫 RAG／向量資料庫／後端工程，也不接純資料輸入的行政工作。<br><b>一句誠實的話：</b>我幫你把系統建好、帶你跑通第一輪；之後的維持靠一套很輕的流程（每週約 15 分鐘），我會把它縮到你跟得上的程度，但不會騙你「買了就一勞永逸」。</div>
+</section>
+
+<section>
+ <h2>跟「買個模板」差在哪</h2>
+ <table>
+  <tr><th>一次性模板</th><th>我的代建</th></tr>
+  <tr><td>給你格子，內容自己想辦法</td><td>用你自己的資料建起來、當場跑通第一輪</td></tr>
+  <tr><td>三週後開始腐化，沒人告訴你為什麼</td><td>內建「什麼放哪、怎麼維護」規則，防腐化</td></tr>
+  <tr><td>AI 讀不懂，問了亂答</td><td>結構化到 AI 檢索得準，附使用規則</td></tr>
+  <tr><td>賣完即止</td><td>交付培訓＋錄影＋交付後 7 天售後支援</td></tr>
+ </table>
+</section>
+
+<div class="final">
+ <h2>Founding 客戶限前 3 位</h2>
+ <p>半價（診斷 NT$1,000／代建 NT$4,000），交換具名見證＋可公開的 Before/After 案例。先從免費 15 分鐘診斷開始——我幫你盤現狀，你拿到具體建議，再決定要不要往下。</p>
+ <div class="ctaRow">
+  <a class="btn gold" href="https://forms.gle/DFunwiXhfJ5aYSy66" target="_blank" rel="noopener">填免費診斷表單</a>
+  <a class="btn ghost" href="https://www.threads.net/@baize.knows" target="_blank" rel="noopener">DM @baize.knows</a>
+ </div>
+</div>
+
+<footer>
+ 白澤｜知識系統建構者 · <a href="/">知識城鎮（真實系統 demo）</a> · 想自己學？<a href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">課程等待名單</a>
+</footer>
+
+</div>
+</body></html>
