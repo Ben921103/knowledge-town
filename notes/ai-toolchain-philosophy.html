@@ -1,0 +1,101 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI 工具鏈設計哲學：從 Harness 到 Skill 生態系 | 白澤的知識城鎮</title><meta name="description" content="AI 工具鏈設計哲學：從 Harness 到 Skill 生態系 核心主張 個人 AI 工作流的成熟路徑不是「工具越多越好」，而是三層遞進：先設計 Harness （行為規格），再選 Skill （執行件），最後建立 生態系 （可組織的能力網絡）。跳過任何一層，工具鏈就會退化成工具堆——看起來功能豐 …"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9B%B2%3C/text%3E%3C/svg%3E"><style>
+*{box-sizing:border-box;}
+body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:#0e1726;color:#e7e0cf;}
+.wrap{max-width:820px;margin:0 auto;padding:96px 20px 70px;}
+.ph1{color:#ffd877;font-size:30px;line-height:1.25;margin:6px 0 14px;}
+.plead{color:#c3b998;font-size:16px;line-height:1.75;margin:0 0 24px;}
+.npill{display:inline-block;background:rgba(201,161,74,.16);color:#ffd877;border:1px solid rgba(201,161,74,.35);border-radius:999px;padding:4px 13px;font-size:13px;font-weight:700;margin-bottom:10px;}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+.fbtn{background:rgba(255,255,255,.05);color:#d9cdb0;border:1px solid rgba(201,161,74,.3);border-radius:999px;padding:7px 14px;font-size:13.5px;cursor:pointer;}
+.fbtn.active,.fbtn:hover{background:#c9a14a;color:#241a10;font-weight:700;}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.ncard{display:block;background:linear-gradient(160deg,#16233a,#131d30);border:1px solid rgba(201,161,74,.18);border-radius:14px;padding:18px;text-decoration:none;transition:.16s;}
+.ncard:hover{transform:translateY(-4px);border-color:rgba(201,161,74,.5);box-shadow:0 14px 26px rgba(0,0,0,.4);}
+.ntitle{color:#f3e7cc;font-weight:800;font-size:16.5px;line-height:1.4;margin:2px 0 8px;}
+.nteaser{color:#a9b7c9;font-size:13.5px;line-height:1.7;}
+.note{background:#fbf6ea;color:#3a2f23;border-radius:16px;padding:30px 34px;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.note .npill{margin-bottom:12px;} .note .ph1{color:#3a2f23;}
+.nmeta{margin:0 0 18px;} .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px;background:#efe4c8;color:#7a6228;}
+.prose{line-height:1.78;font-size:16px;color:#3a2f23;}
+.prose h1,.prose h2,.prose h3{line-height:1.35;margin:1.4em 0 .5em;color:#2a2317;}
+.prose h1{font-size:24px;border-bottom:2px solid #e3d7bd;padding-bottom:.2em;} .prose h2{font-size:20px;} .prose h3{font-size:17px;}
+.prose table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;}
+.prose th,.prose td{border:1px solid #e3d7bd;padding:7px 11px;text-align:left;vertical-align:top;} .prose th{background:#efe4c8;}
+.prose code{background:#efe7d4;padding:2px 6px;border-radius:5px;font-size:.9em;}
+.prose pre{background:#2a2317;color:#f3e7cc;padding:14px 16px;border-radius:9px;overflow:auto;} .prose pre code{background:none;color:inherit;}
+.prose blockquote{border-left:4px solid #c9a14a;margin:1em 0;padding:.2em 1em;color:#6a5b3e;background:#f4ecd8;border-radius:0 8px 8px 0;}
+.prose ul,.prose ol{padding-left:1.4em;} .prose li{margin:.3em 0;}
+.prose a{color:#96702a;} .wl{background:#e9dcbb;border-radius:4px;padding:1px 6px;font-size:.92em;color:#6a5526;}
+.prose img{max-width:100%;border-radius:8px;}
+.afoot{margin-top:34px;} .afoot h3{color:#ffd877;font-size:17px;margin:0 0 12px;}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;}
+.relcard{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(201,161,74,.22);border-radius:11px;padding:13px 15px;color:#d9cdb0;text-decoration:none;font-size:14px;font-weight:600;transition:.15s;}
+.relcard:hover{border-color:rgba(201,161,74,.55);color:#fff;} .relcard.locked{color:#9db0c8;background:rgba(255,255,255,.03);}
+.cta-wide{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:10px;}
+.backmap{color:#c9a14a;text-decoration:none;font-size:14.5px;} .backmap:hover{text-decoration:underline;}
+.notice{background:rgba(201,161,74,.1);border:1px solid rgba(201,161,74,.3);border-radius:11px;padding:16px 18px;color:#c9bb9c;font-size:15px;line-height:1.7;margin:0 0 22px;}
+.lnk{color:#c9a14a;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(14,23,38,.86);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,74,.25);}
+.navinner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:11px 20px;position:relative;}
+.brand{color:#ffd877;font-weight:800;text-decoration:none;font-size:16px;white-space:nowrap;}
+.navtog{display:none;} .hamb{display:none;cursor:pointer;color:#eadfc6;font-size:22px;margin-left:auto;padding:0 6px;user-select:none;}
+.navlinks{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.navlink{color:#d9cdb0;text-decoration:none;font-size:14.5px;padding:7px 12px;border-radius:999px;transition:.15s;}
+.navlink:hover{background:rgba(255,247,214,.1);color:#fff;} .navlink.active{color:#ffd877;}
+.navcta{background:#c9a14a;color:#241a10;font-weight:800;text-decoration:none;font-size:14px;padding:8px 15px;border-radius:999px;white-space:nowrap;}
+.navcta:hover{filter:brightness(1.07);}
+@media(max-width:680px){
+ .hamb{display:block;}
+ .navlinks{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(14,23,38,.98);border-bottom:1px solid rgba(201,161,74,.25);padding:8px 14px 14px;display:none;margin-left:0;}
+ .navtog:checked ~ .navlinks{display:flex;}
+ .navlink,.navcta{width:100%;text-align:center;margin:4px 0;box-sizing:border-box;}
+}
+.site-footer{background:#0b1320;border-top:1px solid rgba(201,161,74,.2);color:#9db0c8;padding:34px 20px;}
+.footinner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 30px;align-items:baseline;font-size:14px;}
+.site-footer a{color:#c9a14a;text-decoration:none;} .site-footer a:hover{text-decoration:underline;}
+.footinner .fplace{color:#67788f;} .footinner .fline{color:#c9bb9c;} .footinner .fcopy{margin-left:auto;color:#6d7f96;}
+.ctaBtn2{display:inline-block;background:#c9a14a;color:#241a10;font-weight:800;padding:12px 24px;border-radius:11px;text-decoration:none;font-size:15.5px;box-shadow:0 6px 16px rgba(0,0,0,.4);transition:.15s;}
+.ctaBtn2:hover{filter:brightness(1.06);transform:translateY(-1px);}
+</style><link rel="canonical" href="https://baize.systems/notes/ai-toolchain-philosophy.html"><meta property="og:title" content="AI 工具鏈設計哲學：從 Harness 到 Skill 生態系"><meta property="og:description" content="AI 工具鏈設計哲學：從 Harness 到 Skill 生態系 核心主張 個人 AI 工作流的成熟路徑不是「工具越多越好」，而是三層遞進：先設計 Harness （行為規格），再選 Skill （執行件），最後建立 生態系 （可組織的能力網絡）。跳過任何一層，工具鏈就會退化成工具堆——看起來功能豐 …"><meta property="og:type" content="article"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 工具鏈設計哲學：從 Harness 到 Skill 生態系", "author": {"@type": "Person", "name": "白澤"}, "publisher": {"@type": "Organization", "name": "baize.systems"}, "url": "https://baize.systems/notes/ai-toolchain-philosophy.html", "inLanguage": "zh-Hant", "description": "AI 工具鏈設計哲學：從 Harness 到 Skill 生態系 核心主張 個人 AI 工作流的成熟路徑不是「工具越多越好」，而是三層遞進：先設計 Harness （行為規格），再選 Skill （執行件），最後建立 生態系 （可組織的能力網絡）。跳過任何一層，工具鏈就會退化成工具堆——看起來功能豐 …"}</script></head><body class="pg"><nav class="topbar"><div class="navinner"><a class="brand" href="/">白澤 · 知識城鎮</a><input type="checkbox" id="navtog" class="navtog"><label for="navtog" class="hamb">☰</label><div class="navlinks"><a class="navlink" href="/">⛲ 地圖</a><a class="navlink" href="/about.html">關於</a><a class="navlink" href="/work.html">作品</a><a class="navlink active" href="/notes/">筆記</a><a class="navcta" href="/build.html">🤝 1:1 代建服務</a></div></div></nav><main class="wrap"><article class="note"><div class="npill">🎭 其他</div><h1 class="ph1">AI 工具鏈設計哲學：從 Harness 到 Skill 生態系</h1><div class="nmeta"><span class="badge">developed</span></div><div class="prose"><h1>AI 工具鏈設計哲學：從 Harness 到 Skill 生態系</h1>
+<h2>核心主張</h2>
+<p>個人 AI 工作流的成熟路徑不是「工具越多越好」，而是三層遞進：先設計 <strong>Harness</strong>（行為規格），再選 <strong>Skill</strong>（執行件），最後建立 <strong>生態系</strong>（可組織的能力網絡）。跳過任何一層，工具鏈就會退化成工具堆——看起來功能豐富，實際上每次都在重新協調。</p>
+<p>FLUX Vault 的工具鏈就是這三層的具體實踐，不是偶然形成的，而是刻意設計的結果。</p>
+<hr>
+<h2>第一層：Harness 先行</h2>
+<p><strong>規格決定工具，而非反過來。</strong></p>
+<p>大多數人建立 AI 工作流的順序是：看到一個有趣的工具 → 想辦法用它 → 在使用過程中摸索規則。這個順序產生的問題是：工具決定了你能做什麼，你的行為規格則永遠在追趕工具。</p>
+<p>Harness 設計反轉了這個順序：先問「我希望 AI 在這個情境下做什麼」，再去找能交付這個行為的工具。具體說，好的 Harness 要能回答四個問題：</p>
+<ul><li><strong>觸發條件</strong>：什麼情境下啟動？</li><li><strong>輸入</strong>：需要哪些前置資訊才能執行？</li><li><strong>輸出</strong>：完成後產出什麼？格式為何？</li><li><strong>邊界</strong>：不碰什麼？止於何處？</li></ul>
+<p>FLUX Vault 的 <code>CLAUDE.md</code> 本質上就是一份 Harness 規格文件——它不描述工具，而是描述「在各種情境下，AI 應該表現出什麼行為」。Session 開始時的主動簡報、evergreen 筆記的修改授權流程、Codex 任務交接的觸發條件，都是 Harness 設計，不是工具設定。</p>
+<p><strong>這一層的核心洞見</strong>：在工具之前先有設計。設計是規格，規格是約束，約束讓 AI 的行為可預期、可校準、可傳承。</p>
+<hr>
+<h2>第二層：Skill 是 Harness 的執行件</h2>
+<p><strong>找 skill 的正確問法不是「這個 skill 能做什麼」，而是「這個任務的期望行為是什麼，哪個 skill 能交付它」。</strong></p>
+<p>林彥廷的「公司組織圖」比喻把這層說清楚了：每個 skill 是一位有明確職責和觸發時機的員工。找 skill 就是招募對應職能的人；組合 skill 就是設計組織分工。這個視角讓選型決策有了清楚的框架——你不需要知道市面上所有 skill，只需要知道「這個任務需要什麼職能」。</p>
+<p>Skill 和 Harness 的關係是：Harness 定義了「要有人負責 X」，Skill 是交付 X 的具體執行者。一個設計完整的 Harness 天然地告訴你應該找什麼 skill——例如 FLUX Vault 的 <code>vault-session-handoff</code> skill 就是從「每次 session 結束都需要產出固定格式交接文件」這個 Harness 規格反推出來的，不是先有 skill 再想用途。</p>
+<p>FLUX Vault 的 Skill 選型邏輯也遵循這個原則：</p>
+<table><thead><tr><th>任務期望行為</th><th>選用 Skill</th><th>環境</th></tr></thead><tbody><tr><td>Session 結束產出交接文件</td><td><code>vault-session-handoff</code></td><td>Cowork</td></tr><tr><td>課程腳本轉音檔</td><td><code>elevenlabs-voice-gen</code></td><td>Cowork</td></tr><tr><td>知識庫定期清理</td><td><code>schedule</code></td><td>Cowork</td></tr><tr><td>程式碼完成前強制驗收</td><td><code>verification-before-completion</code></td><td>Claude Code</td></tr><tr><td>網頁內容入庫</td><td><code>baoyu-url-to-markdown</code></td><td>Claude Code</td></tr></tbody></table>
+<p>每一行都是從「期望行為」出發選到 skill，而非從「這個 skill 能做什麼」出發想用途。</p>
+<p><strong>superpowers 的 <code>verification-before-completion</code> 和 FLUX Vault 的 Gate Function 規則完全重疊</strong>，這不是巧合——兩者都是從同一個期望行為（「宣稱完成前必須執行驗收」）反推出的 Harness 元件，只是一個在 CLAUDE.md 裡以文字規則存在，另一個封裝成可安裝的 Skill。這個重疊說明了好的 Harness 設計和好的 Skill 設計遵循同樣的邏輯。</p>
+<hr>
+<h2>第三層：生態系思維</h2>
+<p><strong>工具鏈成熟的標誌不是工具數量，而是工具之間的分工是否有組織原則。</strong></p>
+<p>生態系和工具堆的差別在於：工具堆是「我有很多工具」，生態系是「每個工具知道自己在整體中的位置，以及什麼情況下不該出手」。</p>
+<p>FLUX Vault 的生態系設計體現在幾個地方：</p>
+<p><strong>工具分工有明確的角色邊界</strong>。Cowork 負責需要判斷與對話的工作，Claude Code 負責可明確描述的執行性工作，兩者不互相越界。這個分工不是能力的問題——技術上 Cowork 也能跑 bash，Claude Code 也能做對話——而是設計選擇，讓每個工具在最適合的情境下出現。</p>
+<p><strong>Skill 生態系有兩個層次</strong>。Cowork 的 Skill 是對話情境下的能力封裝（session 管理、入庫流程），Claude Code 的 Skill 是執行情境下的行為強化（驗收規則、多代理協作）。兩層各有職責，不混用。</p>
+<p><strong>生態系會自我診斷和修復</strong>。這是 FLUX Vault 最能說明生態系思維的地方：2026-06-03 診斷發現 58% 的 wiki 零概念連結，同日用 Python script 一次修復 38 篇。這個「診斷 → 識別問題 → 批次修復」的能力，是因為知識庫被設計成「可被機器處理的格式」（本地 markdown + 結構化 frontmatter），而不是人類閱讀用的靜態文件。生態系的健康可以被量化、可以被自動化維護，這是 Notion 等雲端工具做不到的根本原因。</p>
+<p><strong>護城河在生態系層，不在工具層</strong>。Claude 模型本身是商品，任何人都能用。真正難以複製的是「在你的 Harness 上跑得比預設配置好」的積累——經過校準的 CLAUDE.md、cowork-notes 的踩坑記錄、跨 session 可傳遞的脈絡——這些是你的生態系，不是工具。</p>
+<hr>
+<h2>三層的演進路徑</h2>
+<p>這三層不是同時建立的，也不應該同時建立。</p>
+<p><strong>從 Harness 開始</strong>：在開始用任何 AI 工具之前，先寫下「我希望它在這個情境下做什麼」。哪怕只是三行文字，也比沒有規格強。</p>
+<p><strong>Skill 是 Harness 成熟後的自然產物</strong>：當你發現自己在每個 session 都重複解釋同一件事，那件事就應該被封裝成 Skill。Skill 不是「讓 AI 更聰明」，而是「把你已經知道的規格，轉移到工具裡，讓認知負擔降低」。</p>
+<p><strong>生態系是 Skill 積累後浮現的結構</strong>：當你有足夠多的 Skill，你會開始注意到哪些 Skill 在什麼情境下配合得好，哪些應該分工，哪些重疊了。這個時候你就在做生態系設計了——不是規劃出來的，而是從實踐中長出來的。</p>
+<p>FLUX Vault 的工具鏈大約花了三到四個月走完這三層。不是因為技術難，而是因為每一層都需要真實使用的摩擦和失敗才能校準。</p>
+<hr>
+<h2>結語</h2>
+<p>「先有規格，再選工具，最後讓工具之間有組織原則」——這個順序在工程設計裡是常識，在個人 AI 工作流裡卻常常被跳過。大多數人從工具開始，而不是從問題開始。</p>
+<p>FLUX Vault 的三層設計不是最優解，而是一個可以校準的起點。它的價值不在於現在的狀態，而在於這個設計讓它知道哪裡有問題、可以被診斷、可以被修復、可以持續成長。</p>
+<p>這是「活的工具鏈」和「工具堆」的根本差別。</p></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/ai-first-knowledge-base.html">🎭 AI-first 知識庫與可接續性設計</a><a class="relcard" href="/notes/isomorphic-compounding.html">🎭 同構的複利：知識庫與資產共享的設計律</a><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fplace">Threads（待補）</span><span class="fplace">X（待補）</span><span class="fplace">GitHub（待補）</span><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>

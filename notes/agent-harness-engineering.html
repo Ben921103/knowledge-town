@@ -1,0 +1,186 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Harness Engineering | 白澤的知識城鎮</title><meta name="description" content="AI工具 Agent Harness Engineering 核心主張 ：Agent 的能力上限不是模型決定的，而是 harness 決定的。Agent = Model + Harness。如果你不是模型，你就是 harness——你寫的每一條規則、每一個 hook、每一份 AGENTS.md，都是 …"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9B%B2%3C/text%3E%3C/svg%3E"><style>
+*{box-sizing:border-box;}
+body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:#0e1726;color:#e7e0cf;}
+.wrap{max-width:820px;margin:0 auto;padding:96px 20px 70px;}
+.ph1{color:#ffd877;font-size:30px;line-height:1.25;margin:6px 0 14px;}
+.plead{color:#c3b998;font-size:16px;line-height:1.75;margin:0 0 24px;}
+.npill{display:inline-block;background:rgba(201,161,74,.16);color:#ffd877;border:1px solid rgba(201,161,74,.35);border-radius:999px;padding:4px 13px;font-size:13px;font-weight:700;margin-bottom:10px;}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+.fbtn{background:rgba(255,255,255,.05);color:#d9cdb0;border:1px solid rgba(201,161,74,.3);border-radius:999px;padding:7px 14px;font-size:13.5px;cursor:pointer;}
+.fbtn.active,.fbtn:hover{background:#c9a14a;color:#241a10;font-weight:700;}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.ncard{display:block;background:linear-gradient(160deg,#16233a,#131d30);border:1px solid rgba(201,161,74,.18);border-radius:14px;padding:18px;text-decoration:none;transition:.16s;}
+.ncard:hover{transform:translateY(-4px);border-color:rgba(201,161,74,.5);box-shadow:0 14px 26px rgba(0,0,0,.4);}
+.ntitle{color:#f3e7cc;font-weight:800;font-size:16.5px;line-height:1.4;margin:2px 0 8px;}
+.nteaser{color:#a9b7c9;font-size:13.5px;line-height:1.7;}
+.note{background:#fbf6ea;color:#3a2f23;border-radius:16px;padding:30px 34px;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.note .npill{margin-bottom:12px;} .note .ph1{color:#3a2f23;}
+.nmeta{margin:0 0 18px;} .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px;background:#efe4c8;color:#7a6228;}
+.prose{line-height:1.78;font-size:16px;color:#3a2f23;}
+.prose h1,.prose h2,.prose h3{line-height:1.35;margin:1.4em 0 .5em;color:#2a2317;}
+.prose h1{font-size:24px;border-bottom:2px solid #e3d7bd;padding-bottom:.2em;} .prose h2{font-size:20px;} .prose h3{font-size:17px;}
+.prose table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;}
+.prose th,.prose td{border:1px solid #e3d7bd;padding:7px 11px;text-align:left;vertical-align:top;} .prose th{background:#efe4c8;}
+.prose code{background:#efe7d4;padding:2px 6px;border-radius:5px;font-size:.9em;}
+.prose pre{background:#2a2317;color:#f3e7cc;padding:14px 16px;border-radius:9px;overflow:auto;} .prose pre code{background:none;color:inherit;}
+.prose blockquote{border-left:4px solid #c9a14a;margin:1em 0;padding:.2em 1em;color:#6a5b3e;background:#f4ecd8;border-radius:0 8px 8px 0;}
+.prose ul,.prose ol{padding-left:1.4em;} .prose li{margin:.3em 0;}
+.prose a{color:#96702a;} .wl{background:#e9dcbb;border-radius:4px;padding:1px 6px;font-size:.92em;color:#6a5526;}
+.prose img{max-width:100%;border-radius:8px;}
+.afoot{margin-top:34px;} .afoot h3{color:#ffd877;font-size:17px;margin:0 0 12px;}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;}
+.relcard{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(201,161,74,.22);border-radius:11px;padding:13px 15px;color:#d9cdb0;text-decoration:none;font-size:14px;font-weight:600;transition:.15s;}
+.relcard:hover{border-color:rgba(201,161,74,.55);color:#fff;} .relcard.locked{color:#9db0c8;background:rgba(255,255,255,.03);}
+.cta-wide{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:10px;}
+.backmap{color:#c9a14a;text-decoration:none;font-size:14.5px;} .backmap:hover{text-decoration:underline;}
+.notice{background:rgba(201,161,74,.1);border:1px solid rgba(201,161,74,.3);border-radius:11px;padding:16px 18px;color:#c9bb9c;font-size:15px;line-height:1.7;margin:0 0 22px;}
+.lnk{color:#c9a14a;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(14,23,38,.86);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,74,.25);}
+.navinner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:11px 20px;position:relative;}
+.brand{color:#ffd877;font-weight:800;text-decoration:none;font-size:16px;white-space:nowrap;}
+.navtog{display:none;} .hamb{display:none;cursor:pointer;color:#eadfc6;font-size:22px;margin-left:auto;padding:0 6px;user-select:none;}
+.navlinks{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.navlink{color:#d9cdb0;text-decoration:none;font-size:14.5px;padding:7px 12px;border-radius:999px;transition:.15s;}
+.navlink:hover{background:rgba(255,247,214,.1);color:#fff;} .navlink.active{color:#ffd877;}
+.navcta{background:#c9a14a;color:#241a10;font-weight:800;text-decoration:none;font-size:14px;padding:8px 15px;border-radius:999px;white-space:nowrap;}
+.navcta:hover{filter:brightness(1.07);}
+@media(max-width:680px){
+ .hamb{display:block;}
+ .navlinks{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(14,23,38,.98);border-bottom:1px solid rgba(201,161,74,.25);padding:8px 14px 14px;display:none;margin-left:0;}
+ .navtog:checked ~ .navlinks{display:flex;}
+ .navlink,.navcta{width:100%;text-align:center;margin:4px 0;box-sizing:border-box;}
+}
+.site-footer{background:#0b1320;border-top:1px solid rgba(201,161,74,.2);color:#9db0c8;padding:34px 20px;}
+.footinner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 30px;align-items:baseline;font-size:14px;}
+.site-footer a{color:#c9a14a;text-decoration:none;} .site-footer a:hover{text-decoration:underline;}
+.footinner .fplace{color:#67788f;} .footinner .fline{color:#c9bb9c;} .footinner .fcopy{margin-left:auto;color:#6d7f96;}
+.ctaBtn2{display:inline-block;background:#c9a14a;color:#241a10;font-weight:800;padding:12px 24px;border-radius:11px;text-decoration:none;font-size:15.5px;box-shadow:0 6px 16px rgba(0,0,0,.4);transition:.15s;}
+.ctaBtn2:hover{filter:brightness(1.06);transform:translateY(-1px);}
+</style><link rel="canonical" href="https://baize.systems/notes/agent-harness-engineering.html"><meta property="og:title" content="Agent Harness Engineering"><meta property="og:description" content="AI工具 Agent Harness Engineering 核心主張 ：Agent 的能力上限不是模型決定的，而是 harness 決定的。Agent = Model + Harness。如果你不是模型，你就是 harness——你寫的每一條規則、每一個 hook、每一份 AGENTS.md，都是 …"><meta property="og:type" content="article"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Agent Harness Engineering", "author": {"@type": "Person", "name": "白澤"}, "publisher": {"@type": "Organization", "name": "baize.systems"}, "url": "https://baize.systems/notes/agent-harness-engineering.html", "inLanguage": "zh-Hant", "description": "AI工具 Agent Harness Engineering 核心主張 ：Agent 的能力上限不是模型決定的，而是 harness 決定的。Agent = Model + Harness。如果你不是模型，你就是 harness——你寫的每一條規則、每一個 hook、每一份 AGENTS.md，都是 …"}</script></head><body class="pg"><nav class="topbar"><div class="navinner"><a class="brand" href="/">白澤 · 知識城鎮</a><input type="checkbox" id="navtog" class="navtog"><label for="navtog" class="hamb">☰</label><div class="navlinks"><a class="navlink" href="/">⛲ 地圖</a><a class="navlink" href="/about.html">關於</a><a class="navlink" href="/work.html">作品</a><a class="navlink active" href="/notes/">筆記</a><a class="navcta" href="/build.html">🤝 1:1 代建服務</a></div></div></nav><main class="wrap"><article class="note"><div class="npill">📚 AI工具</div><h1 class="ph1">Agent Harness Engineering</h1><div class="nmeta"><span class="badge">evergreen</span></div><div class="prose"><h1>AI工具 - Agent Harness Engineering</h1>
+<blockquote><p><strong>核心主張</strong>：Agent 的能力上限不是模型決定的，而是 harness 決定的。Agent = Model + Harness。如果你不是模型，你就是 harness——你寫的每一條規則、每一個 hook、每一份 AGENTS.md，都是在設計 agent 的行為邊界。</p></blockquote>
+<hr>
+<h2>核心概念</h2>
+<h3>1. Agent = Model + Harness</h3>
+<p>Viv Trivedy 的核心公式：</p>
+<pre><code>coding agent = AI model(s) + harness</code></pre>
+<p><strong>Harness 是什麼</strong>：圍繞模型的所有程式碼、配置和執行邏輯——系統提示、工具、沙盒、orchestration 邏輯、hooks、observability。模型是輸入，harness 是讓模型能完成工作的全部機制。</p>
+<p><strong>為什麼重要</strong>：同一個 Claude Opus 4.6，在 Claude Code 內建 harness 和自訂 harness 下，Terminal Bench 2.0 分數差距極大。Viv 的團隊只改 harness，agent 從 Top 30 跳到 Top 5。<strong>模型的品質上限在 harness 設計，不在等下一個版本。</strong></p>
+<h3>2. Skill Issue 重新框架</h3>
+<p>常見反應：agent 出錯 → 怪模型 → 等新版本。</p>
+<p>Harness Engineering 的反應：<strong>agent 出錯是配置問題（skill issue），不是模型問題。</strong></p>
+<ul><li>agent 不知道某個慣例 → 加進 AGENTS.md</li><li>agent 跑了破壞性指令 → 加 hook 擋住</li><li>agent 在 40 步任務中迷失 → 拆成 planner + executor</li><li>agent 一直「完成」錯誤的代碼 → 把 typecheck 結果接回 loop</li></ul>
+<p>每個失敗都是可工程化的 signal，而不是「體質問題」。</p>
+<h3>3. Ratchet（棘輪）原則</h3>
+<blockquote><p>「每一個 agent 犯的錯，都應成為永久規則。」</p></blockquote>
+<p><strong>操作方式</strong>：</p>
+<ul><li>agent 犯錯 → 分析根因 → 加進 AGENTS.md / CLAUDE.md / hooks</li><li>規則只在有真實失敗時才加</li><li>模型進步讓規則過時了 → 才移除</li></ul>
+<p><strong>AGENTS.md 的兩個硬教訓</strong>：</p>
+<ol><li><strong>保持在 60 行以內</strong>：規則少，每條才有分量；規則太多，每條都被稀釋</li><li><strong>每條規則必須溯源到一個具體的過去失敗</strong>：不能靠腦補加規則</li></ol>
+<h3>4. Harness 的六個層次</h3>
+<table><thead><tr><th>層次</th><th>內容</th><th>功能</th></tr></thead><tbody><tr><td><strong>Filesystem + Git</strong></td><td>工作目錄、版本控制</td><td>狀態持久化、多 agent 協作基礎</td></tr><tr><td><strong>Bash + Code Execution</strong></td><td>通用工具執行</td><td>讓 agent 能自建所需工具</td></tr><tr><td><strong>Sandbox</strong></td><td>隔離執行環境</td><td>安全執行、允許清單管控、可平行擴展</td></tr><tr><td><strong>Memory + Search</strong></td><td>AGENTS.md、web search</td><td>跨 session 知識注入、補訓練截止後的資訊</td></tr><tr><td><strong>Context 管理</strong></td><td>Compaction、offloading、skills</td><td>對抗 context rot，讓 agent 保持清醒</td></tr><tr><td><strong>Long-horizon Execution</strong></td><td>Ralph Loop、planning、evaluator</td><td>多步驟任務不失控、planner/generator/evaluator 分離</td></tr></tbody></table>
+<h3>5. 從期望行為反推 Harness 設計</h3>
+<p>Viv 的設計框架：<strong>先定義想要的行為，再推導哪個 harness 元件能交付它。</strong></p>
+<pre><code>想要的行為 → 對應的 harness 元件
+─────────────────────────────────────
+agent 不亂改慣例 → AGENTS.md 的規則
+agent 不跑破壞性指令 → pre-tool hook
+agent 測試通過才結束 → typecheck 回壓信號
+agent 不在 40 步後迷失 → planner + checkpoint
+agent 多 session 不失憶 → AGENTS.md 自動注入</code></pre>
+<p>每個 harness 元件都應該有一個明確的「它存在是為了防止 X 行為」的答案。</p>
+<h3>6. Harness-as-a-Service（HaaS）趨勢</h3>
+<p>Claude Agent SDK、Codex SDK、OpenAI Agents SDK 都在往「給你 runtime，你來調整配置」方向走。</p>
+<p>開發者的工作從「自建 loop + 自己管 conversation state」，變成「在四個維度上配置：system prompt、tools、context、subagents」。</p>
+<p><strong>意義</strong>：harness 不再是從零打造，而是在有良好抽象的框架上，針對你的任務做領域特定的調整。</p>
+<h3>7. Claude Code 的五層 Harness 結構</h3>
+<p>warmwater.dev 的 Harness Engineering 系列提出了一個針對 Claude Code 工具鏈的五層操作結構，和 Viv Trivedy 的六層互補（前者更抽象，後者針對 Claude Code 特定配置）：</p>
+<table><thead><tr><th>層次</th><th>元件</th><th>角色</th></tr></thead><tbody><tr><td>1</td><td><strong>CLAUDE.md</strong></td><td>系統提示層——行為規則、邊界、工作哲學；保持 60 行以內，規則過多每條都被稀釋</td></tr><tr><td>2</td><td><strong>Hooks</strong></td><td>自動化信號層——工具執行前後插入邏輯；透過 stderr 發送信號，LLM 決定是否採取行動</td></tr><tr><td>3</td><td><strong>Skills</strong></td><td>可載入能力層——三層 Progressive Disclosure：metadata 常駐（~35 tokens）→ 觸發後載入 body → 執行時讀取 resources</td></tr><tr><td>4</td><td><strong>Plugins</strong></td><td>功能打包層——把相關 Skills + MCP + Hooks 打包成可共享、可移植的單元</td></tr><tr><td>5</td><td><strong>MCP Servers</strong></td><td>外部整合層——連接外部 API 與資料源；credential 邊界在 server 端管控，不進 prompt</td></tr></tbody></table>
+<p><strong>維護節奏</strong>：每 3–6 個月審視一次。判斷標準是 <strong>benchmark gap</strong>：移除某條規則後行為沒有下降，這條規則就應該刪掉。靠感覺維護 harness 是盲目工程化；老規則可能在不知不覺中阻礙新模型能力。</p>
+<p>（來源：warmwater.dev / 溫煜鈞；<code>https://warmwater.dev/blog/claude-code-harness-over-model</code>）</p>
+<h3>8. 四個可預測的 AI 編碼失敗模式</h3>
+<p>warmwater.dev「計畫模式」文章整理出四個在 agent 執行中反覆出現的失敗模式，以及對應的 harness 設計解法：</p>
+<table><thead><tr><th>失敗模式</th><th>描述</th><th>Harness 設計解法</th></tr></thead><tbody><tr><td><strong>直接開始編碼</strong></td><td>沒有規劃就動手，改了多個檔案才發現方向錯誤</td><td>Plan Mode：書面計劃批准後才動 code</td></tr><tr><td><strong>猜 bug</strong></td><td>不讀完整錯誤信息，靠猜修 bug，繞了大圈</td><td>Iron Law：強制讀完整錯誤信息再診斷</td></tr><tr><td><strong>宣稱完成但沒驗證</strong></td><td>任務做完，沒跑測試或驗收，問題留到後面才爆</td><td>Gate Function：宣告完成前必須通過門檻檢查</td></tr><tr><td><strong>長 session context 污染</strong></td><td>session 過長，AI 受早期上下文干擾，產出不一致</td><td>Controller-Worker 架構：每個子任務由獨立 subagent 從零 context 開始</td></tr></tbody></table>
+<p><strong>Iron Law + 反合理化表</strong>：在 harness 中植入「鐵律」本身不夠——模型會自我合理化繞過它（「這次情況特殊⋯⋯」）。有效的強制執行需要同時加入「反合理化表」：預先列出 AI 可能用來繞過此規則的理由並逐一反駁，讓模型在執行前就看到自己的合理化路徑。</p>
+<p><strong>Gate Function 語法</strong>：</p>
+<pre><code>BEFORE [宣告任何任務完成]
+→ 必須執行：[測試清單 / 驗收標準]
+→ 確認通過後
+ONLY THEN [繼續下一步 / 回報完成]</code></pre>
+<p><strong>Controller-Worker 架構</strong>：Controller 的責任是準備完整、自包含的提示詞（含背景、邊界、預期輸出），確保每個 Worker subagent 啟動時 zero session history——不靠 context 繼承，只靠 Controller 注入的信息包。這是「防污染」的工程化實作，也是為什麼 Controller 要花時間準備提示詞而不直接轉發指令。</p>
+<p>（來源：warmwater.dev / 溫煜鈞；<code>https://warmwater.dev/blog/superpowers-plan-mode-ai-agent</code>）</p>
+<hr>
+<h2>核心框架</h2>
+<h3>Harness 設計的四個配置維度</h3>
+<pre><code>System Prompt（行為邊界）
+  ↓ 例：AGENTS.md、CLAUDE.md
+  → 告訴 agent 不能做什麼、怎麼做、慣例是什麼
+
+Tools（能力範圍）
+  ↓ 例：bash、Playwright、Context7、Sequential Thinking
+  → 10 個精準工具 &gt; 50 個重疊工具；每個工具的 description 是 prompt
+
+Context（資訊密度）
+  ↓ 例：compaction、progressive disclosure、tool offloading
+  → 讓 context window 裡的每個 token 都有意義
+
+Subagents（協作結構）
+  ↓ 例：planner/generator/evaluator 分離
+  → agent 自評自己的工作會偏正向；分離 evaluator 才能客觀驗收</code></pre>
+<h3>Harness 不縮小，只是移動</h3>
+<p>隨著模型進步，舊的 harness 問題消失，但<strong>新的任務空間打開，帶來新的 harness 問題</strong>：</p>
+<ul><li>Opus 4.6 解決了 context anxiety（不再因接近 context limit 而提早收工）</li><li>→ 之前的「緊張感緩解 scaffolding」可以移除</li><li>→ 但現在可以做更複雜的多日任務，需要「multi-day memory policy」和「cross-agent 協作設計」</li></ul>
+<h3>Claude Code 不能只待在角落</h3>
+<p>矽谷叔叔的 Claude Code 工作流文章提供了另一個很實務的 harness 角度：很多人覺得 Claude Code 只能做小事，原因不是模型差，而是沒有把它接進真實工作流。</p>
+<p>三個可轉成 harness 設計的做法：</p>
+<table><thead><tr><th>做法</th><th>Harness 對應</th><th>安全邊界</th></tr></thead><tbody><tr><td>讓 Claude Code 接觸 Browser</td><td>Tools / workflow surface</td><td>cookie 與登入狀態要限制任務範圍</td></tr><tr><td>把重複流程 script 化</td><td>Deterministic tool offloading</td><td>script 要可審、可重跑、可回滾</td></tr><tr><td>用 MCP Server 延伸 API / 工具</td><td>Tools + credential boundary</td><td>API key 不進 prompt，server 端要管 secret / auth / logs</td></tr></tbody></table>
+<p>這補強了本篇的核心：agent 的能力上限不只是模型，而是它被允許接觸什麼、反覆流程是否工程化、敏感能力是否被隔離。</p>
+<hr>
+<h2>對 FLUX Vault 的應用</h2>
+<p><strong>CLAUDE.md 就是 Vault 的 harness</strong>，這個重新框架讓現有設計的用意更清晰：</p>
+<table><thead><tr><th>FLUX Vault 元素</th><th>Harness 對應</th></tr></thead><tbody><tr><td><code>CLAUDE.md</code></td><td>System Prompt（行為邊界）</td></tr><tr><td><code>cowork-notes.md</code></td><td>Memory（有效模式 + 踩坑 → 下次行為調整）</td></tr><tr><td>快速指令觸發表</td><td>Skills with progressive disclosure</td></tr><tr><td>禁止事項 Section 05</td><td>Pre-tool hooks（禁止破壞性操作）</td></tr><tr><td>Session 結束行為校準</td><td>Ratchet 棘輪機制</td></tr><tr><td><code>task-spec-入庫SOP.md</code></td><td>Planner（任務前先定 spec，再執行）</td></tr></tbody></table>
+<p><strong>DoodleFocus 開發起步建議</strong>： 開始讓 AI 寫 App 之前，先設計 harness：</p>
+<ol><li>建立 <code>DoodleFocus/CLAUDE.md</code>（system prompt 層）</li><li>定義工具允許清單（tools 層）</li><li>設計 spec 模板（context 層）</li><li>等需要多個 subagent 協作時，加入 planner/evaluator 分離（subagents 層）</li></ol>
+<hr>
+<h2>我的觀點</h2>
+<p><em>確認：2026-05-24</em></p>
+<p><strong>CLAUDE.md 就是 Harness 這個重新框架，讓我意識到自己在做什麼</strong></p>
+<p>我一直在建 harness，只是之前沒有這個詞。Section 07 的「每次 AI 犯錯就加一條規則或踩坑紀錄」就是 Ratchet 原則。<code>cowork-notes.md</code> 的有效模式和踩坑紀錄就是 memory 層。快速指令觸發表就是 progressive disclosure。現在有了這套語彙，可以更有意識地設計而不是靠直覺累積。</p>
+<p><strong>Ratchet 原則是 CLAUDE.md Section 07 的理論基礎</strong></p>
+<p>以前寫「重複犯同一類錯誤就加進禁止事項」是實用主義，現在知道這叫 Ratchet——每個失敗都是永久 signal，累積成更好的 harness。這個框架也讓我更清楚 <em>什麼時候不應該加規則</em>：沒有真實失敗就不加，不然規則會膨脹失焦。</p>
+<p><strong>Leeway：YAML 決策樹作為 Ratchet 的結構化延伸（2026-05-27 補充）</strong></p>
+<p>Claude Taiwan 社群（Marcus Chang，2026 年）分享的 Leeway 概念——用 YAML 決策樹約束 Agent 執行順序——可以理解為 Ratchet 原則的一個進化形式：不只是文字規則，而是把「執行順序」本身結構化，讓 Agent 每次做同類任務時都走相同路徑，確保可重現、可稽核。</p>
+<p>和本篇「從期望行為反推 Harness 設計」的框架呼應：如果期望的行為是「每次都按相同順序讀檔、呼叫工具、做決策」，那 YAML 決策樹就是對應的 harness 元件。（來源：Claude Taiwan / Marcus Chang；原貼 <code>https://www.facebook.com/groups/1224997379198346/posts/1274182437613173/</code>；GitHub <code>https://github.com/hardness1020/Leeway</code>）</p>
+<p><strong>Leeway repo README 查核補充（2026-05-28）</strong></p>
+<p>實際讀取 README 後，Leeway 的定位比最初的「YAML 決策樹概念」更為完整。它明確把自己定位在兩個極端之間：OpenClaw（Agent 完全自主決定路徑，彈性但不可預測）和 n8n（人工設計剛性腳本，可預測但無 AI 靈活性）——Leeway 的設計是「人定決策圖，AI 在每個節點執行」。這個定位和本篇 Harness 設計的核心一致：由 harness 定義邊界，由 AI 在邊界內發揮。</p>
+<p>技術層面，Leeway 是一個完整的 Python harness 框架（MIT，190 項測試全通過），包含：21 個內建工具（File I/O / Web / Bash / Tasks / Cron / Memory / MCP）、hooks 生命週期（before/after tool execution）、MCP 支援、cron 排程、skills 模組化、plugins 打包、remote triggers、以及多層權限管控（Plan mode / Full auto / Default）。這讓 Leeway 成為「harness-as-a-service 的本土具體實作」——而不只是一個 YAML 規則概念，是值得深入追蹤的演進軌跡。</p>
+<p><strong>warmwater.dev 補充視角：三層模型、越做越薄、規劃是新的編碼（2026-05-28 補充）</strong></p>
+<p>溫煜鈞（warmwater.dev / Backend Engineer @ Trend Micro）的 Harness Engineering 系列文章提供了幾個補充本篇的重要視角：</p>
+<p><strong>三層工程模型</strong>：Prompt Engineering（單次訊息品質）→ Context Engineering（信息供給策略）→ Harness Engineering（執行基礎設施）。三者不是遞進關係，而是不同抽象層次——當你決定要建「執行代理」而非「問答系統」的那刻，harness 就應該和 prompt 一起進入考量。Harness 解決的是「模型從文字工具轉為執行代理後」才出現的四類問題：操作副作用不可逆、任務狀態需跨 session、資源成本需管控、多 agent 協作需協調。</p>
+<p><strong>越做越薄，不是越做越複雜</strong>：Manus 團隊在半年內重寫 Harness 五次，每次方向都是簡化——用通用 shell 替代複雜工具定義，用結構化交接替代管理 agent。這是反直覺的洞察：如果你的 harness 越做越複雜，大概率是在用基礎設施補償本來可以直接信任模型的地方。這和 Ratchet 原則方向一致：只有真實失敗才加規則，模型進步讓規則過時就移除。</p>
+<p><strong>規劃是新的編碼</strong>（Boris Tane / Cloudflare）：永遠不要讓 Agent 在審查和批准書面計劃前寫代碼。Agent 一旦開始執行，中途糾偏成本比人類寫 code 時更高——它可能已修改多個文件、建立多個前提假設。這和 FLUX Vault 的 task-spec-入庫SOP 完全對應：先定 spec、再執行。</p>
+<p><strong>有人值守 vs 無人值守並行</strong>：位置取決於 harness 成熟度，不是模型能力。Stripe 能無人值守，是因為有完整預暖開發環境和 CI 整合。FLUX Vault 目前是有人值守——這是 harness 仍在建立的正常狀態，不是限制。</p>
+<p>（來源：warmwater.dev / 溫煜鈞；<code>https://warmwater.dev/blog/harness-engineering-ai</code>）</p>
+<p><strong>Plugin 層的具體化（2026-05-31 補充）</strong></p>
+<p>本篇的第 4 層「Plugin = 功能打包層」已有專篇展開：<span class="wl">AI工具 - Claude Code Plugin Marketplace</span>。補充視角：</p>
+<ul><li>Plugin 不只是把 Skills 打包，而是把整個 harness 配置（Skills + Commands + MCP + Hooks + manifest）打包成可安裝單元</li><li><code>anthropics/knowledge-work-plugins</code> 展示了 Plugin 升級為「職能工作包」的可能性——按工作角色而非工具清單組織能力（詳見 <span class="wl">AI工具 - Claude Knowledge Work Plugins</span>）</li><li>Codex App 的 plugins（Browser、GitHub、Documents 等）是同一邏輯的不同實作：capability bundle 作為 harness 競爭的核心戰場</li></ul>
+<p><strong>胡嘉璽報告的四個補充視角（2026-06-03）</strong></p>
+<p><strong>Context Rot 與 FLUX Vault session 設計的呼應</strong> 報告提出 Context window 甜蜜區 40–60%、有效上限約 17 萬 tokens——這解釋了 FLUX Vault「短 session + handoff」設計的底層邏輯：每次 session 結束前主動輸出交接文件，本質上是在 context rot 發生前強制清場。CLAUDE.md 的「session 結束行為校準」機制，就是把 context management 制度化為流程。handoff 不只是方便性設計，而是對抗 context rot 的主動 harness 機制。</p>
+<p><strong>Codex 任務邊界 = Sub-Agent 脈絡防火牆的工程化</strong> 「Sub-Agent 是脈絡防火牆」讓 cowork-to-codex 任務文件的邊界說明有了理論根據：「必讀文件清單」是 Controller 注入的信息包，「不需要讀」的邊界說明是防火牆定義。每一條邊界限制都是在防止雜訊污染 Codex 的 context。以前靠直覺寫邊界，現在知道這是 harness 設計裡防火牆機制的具體實作。</p>
+<p><strong>Section 09 退場機制是 Level 3 清潔代理的人工版</strong> 報告「Level 3：清潔代理定期回收技術債」在 FLUX Vault 的對應是 Section 09 的操作型文件退場機制——定期清理 ops/、刪除已吸收的 codex-result、維護 Raw 佇列。目前是人工觸發 + AI 輔助執行，而非全自動清潔代理。若清理頻率夠高，可評估透過 Cowork scheduled task 自動化（對應學習與優化待辦的「Vault 自動化」條目）。</p>
+<p><strong>Runtime 層是真正的護城河</strong> 模型層商品化 + 協議層開放（MCP 等事實標準）= 護城河在 Runtime 層（Claude Code / Cowork）和 Control Plane 層。FLUX Vault 工具鏈（CLAUDE.md + cowork-notes.md + task-spec-SOP）是在 Runtime 層累積個人護城河——讓 AI 工具在「我的 harness 上」比別人的預設配置跑得更好。這解釋了持續維護 CLAUDE.md Ratchet 機制的長期複利效應：護城河不是別人拿不走的模型，而是拿不走的 harness 設計。</p>
+<p><strong>eval 層是我 harness 的結構性缺口（2026-06-06 自我體檢）</strong></p>
+<p>拿 agents-best-practices（<span class="wl">工具雷達條目</span>）的 audit checklist 對 FLUX Vault 跑了 5 面鏡子體檢（Legibility / Permission / Context / Skills / Mechanical invariant，完整結果見 <span class="wl">result-2026-06-06-harness-self-audit</span>），得到一個我自己沒意識到的結論：<strong>我的 harness 強在「規則層」和「可讀層」，但弱在「機械驗證層」。</strong></p>
+<p>我一直把 Ratchet 原則做得很勤——每次失敗就加一條規則或踩坑紀錄。但 checklist 點出我漏掉的下一步：成熟的 harness 不只「記住」失敗，而是把失敗<strong>機械攔截</strong>。我已經在 wiki 寫入層做了兩支 hook（<code>protect_evergreen</code> 擋寫 evergreen、<code>validate_wiki_frontmatter</code> 驗 frontmatter）——所以機械層不是全空，方向也對。但這兩支只覆蓋「寫進 wiki 時的完整性」，我其餘的規則仍多是寫給 AI 讀的 prompt-level 指示，靠 AI 自律 + 每個 session 的人工覆核執行。三個還沒被機械攔截的缺口：</p>
+<ol><li><strong>Skill eval 真空</strong>：vault-prescreen 等 skill 沒有 activation / output eval。本次 Threads 佇列清空時，#3 Trellis 被誤判為待補增量（它其實早已入 <span class="wl">AI工具 - Agent Session Handoff Governance</span>），就是 output 沒被 eval 攔下、靠 Cowork 人工覆核才抓到的活例。</li><li><strong>驗證靠記憶</strong>：入庫 SOP 的 <code>rg</code>/parser 驗收是「請 AI 記得跑」的 prompt 指示，不是會自動執行的 validator——AI 可能略過而無人察覺。</li><li><strong>無 regression</strong>：踩坑寫進 cowork-notes 只是文字規則，下次同類錯誤沒有自動測試攔截。</li></ol>
+<p>這把 Ratchet 原則往前推了一格：<strong>Ratchet 的終點不是「規則清單」，而是「validator / eval 清單」</strong>——文字規則是 Ratchet 的初級形態，把反覆失敗固化成機械檢查才是成熟形態。這也解釋了為什麼我目前的品質完全依賴人工覆核：因為驗證層還沒從 prompt 下沉到機制。可遷移性：這個缺口將來 DoodleFocus / 補習班 agent 一定會撞到，屆時可直接用 agents-best-practices 的 mvp-agent-blueprint 起手，把 eval / launch gate 從第一天建進去。</p>
+<p><strong>待深化的問題</strong>：</p>
+<ul><li>[x] <strong>Ratchet → validator 升級試點</strong>（2026-06-06 開）→ ✅ 結案（2026-06-10）：試點<strong>在生產中驗證成功</strong>。vault-prescreen SKILL.md Step 5「Verdict 自檢」（06-06 加入）於 2026-06-10 的 7 題查證批次<strong>真實攔截一次誤判</strong>——Agent Handoff Kit 初判「增量」，自檢規則（查目標頁既有涵蓋）發現頁內 06-04 npm 驗證節已答原問題，輸出前改判「已整合＋輕增量」，正是 06-06 #3 Trellis 誤判的同型錯誤。結論：①可行性✅——文字規則寫進 skill 自檢步驟即可機械執行，不需 hook／code；②維護成本≈零（一段 SKILL.md 文字）；③推廣判準＝「可機械驗證的前置檢查」優先做成 skill 內自檢清單，hook 留給跨 skill 的硬邊界（如 code_readonly_gate）。原「CLAUDE.md vs Hooks 臨界點」問題由此收斂：臨界點不在規模，在「違規後果是否不可逆」——可逆的用 skill 自檢，不可逆的才上 hook。</li><li>AGENTS.md 60 行上限：✅ 已確認（2026-05-31）。CLAUDE.md 目前 300 行，不會接近 60 行。分析：核心規則段落（Section 00–05, 07–08）約 103 行，Section 06（AI 工具行為紀錄）106 行，Section 09（退場機制）58 行。60 行上限是針對軟體開發專案的 AGENTS.md；FLUX Vault 的 CLAUDE.md 承擔更廣泛的功能（session governance、Codex 交接觸發、行為校準規則），不宜類比。實際應用原則：關注<strong>單條規則的清晰度和可追溯性</strong>（每條規則要能溯源到真實失敗），而非總行數。</li><li>DoodleFocus harness 設計：等開發啟動時，用這篇作為 harness 設計的起跳框架</li><li><strong>先寫憲法再建系統</strong>（來自 ryanx0621/Atlas-World，2026-06-03）：在 agent 行為出現之前先定義約束層，是 CLAUDE.md 設計的同一原則。Atlas-World 的身份連續性函數 C(S₀, S*) 也值得參考：用四維度（記憶/價值觀/性格/時間）量化「合併前後還是不是同一個 agent」——可套用在 session handoff 的品質評估，思考「下一個 session 的 AI 接回多少這次的脈絡？」</li><li>~~warmwater.dev 的 Claude Code Harness Engineering 系列（8 篇）值得系統性讀完，特別是「Task Continuity：Claude Code 的 Session 設計」與「Hooks 完整指南」——待條件成熟時深化~~ ✅ 已系統讀完（2026-05-28）：五層 Harness 結構、四個失敗模式與設計模式已補入小節 7–8；Task Continuity 三層框架補入 <span class="wl">AI工具 - Agent Session Handoff Governance</span>；三層載入機制與 Description=搜尋索引原則補入 <span class="wl">AI工具 - Claude Skills 設計原則與工作流對應</span></li></ul>
+<hr>
+<h2>可連結的主題</h2>
+<ul><li><span class="wl">AI 專案規範管理</span> — CLAUDE.md / hooks / skills 的實際結構設計</li><li><span class="wl">AI工具 - Claude Code 多代理工程團隊方法論</span> — subagents 上下文隔離、planner/evaluator 分離的工程實踐</li><li><span class="wl">規格驅動的 AI 工作流</span> — Spec 作為 harness 的 context 層</li><li><span class="wl">Agent Native 工具設計</span> — Tools 層的設計原則</li><li><span class="wl">AI工具 - Claude Code 長任務管理</span> — Long-horizon execution 的具體實踐</li></ul>
+<hr>
+<h2>金句備忘</h2>
+<blockquote><p>「Agent = Model + Harness。如果你不是模型，你就是 harness。」</p></blockquote>
+<blockquote><p>「每個 agent 犯的錯都應成為永久規則——只加不亂加，等模型讓規則過時才移除。」</p></blockquote>
+<blockquote><p>「Harness 不縮小，只是移動。模型進步打開新任務空間，帶來新的 harness 問題。」</p></blockquote></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard" href="/notes/agent-session-handoff-governance.html">📚 Agent Session Handoff Governance</a><a class="relcard" href="/notes/claude-code-multi-agent.html">📚 Claude Code 多代理工程團隊方法論</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fplace">Threads（待補）</span><span class="fplace">X（待補）</span><span class="fplace">GitHub（待補）</span><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>

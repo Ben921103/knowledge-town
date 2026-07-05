@@ -1,0 +1,158 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Agent Session Handoff Governance | 白澤的知識城鎮</title><meta name="description" content="AI工具 Agent Session Handoff Governance 核心主張 ：AI 長任務的交接不是「寫一份摘要」，而是一套治理問題——防止任務在跨 session 的過程中失憶、被污染、或被錯誤接手。好的 handoff 工具不夠，還需要 governance 設計思維。 核心概念 1. …"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9B%B2%3C/text%3E%3C/svg%3E"><style>
+*{box-sizing:border-box;}
+body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:#0e1726;color:#e7e0cf;}
+.wrap{max-width:820px;margin:0 auto;padding:96px 20px 70px;}
+.ph1{color:#ffd877;font-size:30px;line-height:1.25;margin:6px 0 14px;}
+.plead{color:#c3b998;font-size:16px;line-height:1.75;margin:0 0 24px;}
+.npill{display:inline-block;background:rgba(201,161,74,.16);color:#ffd877;border:1px solid rgba(201,161,74,.35);border-radius:999px;padding:4px 13px;font-size:13px;font-weight:700;margin-bottom:10px;}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+.fbtn{background:rgba(255,255,255,.05);color:#d9cdb0;border:1px solid rgba(201,161,74,.3);border-radius:999px;padding:7px 14px;font-size:13.5px;cursor:pointer;}
+.fbtn.active,.fbtn:hover{background:#c9a14a;color:#241a10;font-weight:700;}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.ncard{display:block;background:linear-gradient(160deg,#16233a,#131d30);border:1px solid rgba(201,161,74,.18);border-radius:14px;padding:18px;text-decoration:none;transition:.16s;}
+.ncard:hover{transform:translateY(-4px);border-color:rgba(201,161,74,.5);box-shadow:0 14px 26px rgba(0,0,0,.4);}
+.ntitle{color:#f3e7cc;font-weight:800;font-size:16.5px;line-height:1.4;margin:2px 0 8px;}
+.nteaser{color:#a9b7c9;font-size:13.5px;line-height:1.7;}
+.note{background:#fbf6ea;color:#3a2f23;border-radius:16px;padding:30px 34px;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.note .npill{margin-bottom:12px;} .note .ph1{color:#3a2f23;}
+.nmeta{margin:0 0 18px;} .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px;background:#efe4c8;color:#7a6228;}
+.prose{line-height:1.78;font-size:16px;color:#3a2f23;}
+.prose h1,.prose h2,.prose h3{line-height:1.35;margin:1.4em 0 .5em;color:#2a2317;}
+.prose h1{font-size:24px;border-bottom:2px solid #e3d7bd;padding-bottom:.2em;} .prose h2{font-size:20px;} .prose h3{font-size:17px;}
+.prose table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;}
+.prose th,.prose td{border:1px solid #e3d7bd;padding:7px 11px;text-align:left;vertical-align:top;} .prose th{background:#efe4c8;}
+.prose code{background:#efe7d4;padding:2px 6px;border-radius:5px;font-size:.9em;}
+.prose pre{background:#2a2317;color:#f3e7cc;padding:14px 16px;border-radius:9px;overflow:auto;} .prose pre code{background:none;color:inherit;}
+.prose blockquote{border-left:4px solid #c9a14a;margin:1em 0;padding:.2em 1em;color:#6a5b3e;background:#f4ecd8;border-radius:0 8px 8px 0;}
+.prose ul,.prose ol{padding-left:1.4em;} .prose li{margin:.3em 0;}
+.prose a{color:#96702a;} .wl{background:#e9dcbb;border-radius:4px;padding:1px 6px;font-size:.92em;color:#6a5526;}
+.prose img{max-width:100%;border-radius:8px;}
+.afoot{margin-top:34px;} .afoot h3{color:#ffd877;font-size:17px;margin:0 0 12px;}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;}
+.relcard{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(201,161,74,.22);border-radius:11px;padding:13px 15px;color:#d9cdb0;text-decoration:none;font-size:14px;font-weight:600;transition:.15s;}
+.relcard:hover{border-color:rgba(201,161,74,.55);color:#fff;} .relcard.locked{color:#9db0c8;background:rgba(255,255,255,.03);}
+.cta-wide{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:10px;}
+.backmap{color:#c9a14a;text-decoration:none;font-size:14.5px;} .backmap:hover{text-decoration:underline;}
+.notice{background:rgba(201,161,74,.1);border:1px solid rgba(201,161,74,.3);border-radius:11px;padding:16px 18px;color:#c9bb9c;font-size:15px;line-height:1.7;margin:0 0 22px;}
+.lnk{color:#c9a14a;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(14,23,38,.86);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,74,.25);}
+.navinner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:11px 20px;position:relative;}
+.brand{color:#ffd877;font-weight:800;text-decoration:none;font-size:16px;white-space:nowrap;}
+.navtog{display:none;} .hamb{display:none;cursor:pointer;color:#eadfc6;font-size:22px;margin-left:auto;padding:0 6px;user-select:none;}
+.navlinks{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.navlink{color:#d9cdb0;text-decoration:none;font-size:14.5px;padding:7px 12px;border-radius:999px;transition:.15s;}
+.navlink:hover{background:rgba(255,247,214,.1);color:#fff;} .navlink.active{color:#ffd877;}
+.navcta{background:#c9a14a;color:#241a10;font-weight:800;text-decoration:none;font-size:14px;padding:8px 15px;border-radius:999px;white-space:nowrap;}
+.navcta:hover{filter:brightness(1.07);}
+@media(max-width:680px){
+ .hamb{display:block;}
+ .navlinks{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(14,23,38,.98);border-bottom:1px solid rgba(201,161,74,.25);padding:8px 14px 14px;display:none;margin-left:0;}
+ .navtog:checked ~ .navlinks{display:flex;}
+ .navlink,.navcta{width:100%;text-align:center;margin:4px 0;box-sizing:border-box;}
+}
+.site-footer{background:#0b1320;border-top:1px solid rgba(201,161,74,.2);color:#9db0c8;padding:34px 20px;}
+.footinner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 30px;align-items:baseline;font-size:14px;}
+.site-footer a{color:#c9a14a;text-decoration:none;} .site-footer a:hover{text-decoration:underline;}
+.footinner .fplace{color:#67788f;} .footinner .fline{color:#c9bb9c;} .footinner .fcopy{margin-left:auto;color:#6d7f96;}
+.ctaBtn2{display:inline-block;background:#c9a14a;color:#241a10;font-weight:800;padding:12px 24px;border-radius:11px;text-decoration:none;font-size:15.5px;box-shadow:0 6px 16px rgba(0,0,0,.4);transition:.15s;}
+.ctaBtn2:hover{filter:brightness(1.06);transform:translateY(-1px);}
+</style><link rel="canonical" href="https://baize.systems/notes/agent-session-handoff-governance.html"><meta property="og:title" content="Agent Session Handoff Governance"><meta property="og:description" content="AI工具 Agent Session Handoff Governance 核心主張 ：AI 長任務的交接不是「寫一份摘要」，而是一套治理問題——防止任務在跨 session 的過程中失憶、被污染、或被錯誤接手。好的 handoff 工具不夠，還需要 governance 設計思維。 核心概念 1. …"><meta property="og:type" content="article"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Agent Session Handoff Governance", "author": {"@type": "Person", "name": "白澤"}, "publisher": {"@type": "Organization", "name": "baize.systems"}, "url": "https://baize.systems/notes/agent-session-handoff-governance.html", "inLanguage": "zh-Hant", "description": "AI工具 Agent Session Handoff Governance 核心主張 ：AI 長任務的交接不是「寫一份摘要」，而是一套治理問題——防止任務在跨 session 的過程中失憶、被污染、或被錯誤接手。好的 handoff 工具不夠，還需要 governance 設計思維。 核心概念 1. …"}</script></head><body class="pg"><nav class="topbar"><div class="navinner"><a class="brand" href="/">白澤 · 知識城鎮</a><input type="checkbox" id="navtog" class="navtog"><label for="navtog" class="hamb">☰</label><div class="navlinks"><a class="navlink" href="/">⛲ 地圖</a><a class="navlink" href="/about.html">關於</a><a class="navlink" href="/work.html">作品</a><a class="navlink active" href="/notes/">筆記</a><a class="navcta" href="/build.html">🤝 1:1 代建服務</a></div></div></nav><main class="wrap"><article class="note"><div class="npill">📚 AI工具</div><h1 class="ph1">Agent Session Handoff Governance</h1><div class="nmeta"><span class="badge">evergreen</span></div><div class="prose"><h1>AI工具 - Agent Session Handoff Governance</h1>
+<blockquote><p><strong>核心主張</strong>：AI 長任務的交接不是「寫一份摘要」，而是一套治理問題——防止任務在跨 session 的過程中失憶、被污染、或被錯誤接手。好的 handoff 工具不夠，還需要 governance 設計思維。</p></blockquote>
+<hr>
+<h2>核心概念</h2>
+<h3>1. Session Handoff vs. Project Governance</h3>
+<p>大多數 handoff 工具解決的是「把這次做了什麼告訴下一次」——這是 session 層的工具問題。</p>
+<p><strong>Governance</strong> 解決的是更上層的問題：</p>
+<table><thead><tr><th>維度</th><th>Session Handoff（工具層）</th><th>Project Governance（設計層）</th></tr></thead><tbody><tr><td>問題</td><td>怎麼把狀態傳給下一個 agent？</td><td>系統長期不失憶、不污染、不亂接手</td></tr><tr><td>對象</td><td>單次交接</td><td>整個 agent 生命週期</td></tr><tr><td>輸出</td><td>handoff message / 摘要</td><td>治理框架 + 文件體系</td></tr><tr><td>觸發</td><td>session 結束時</td><td>專案設計階段</td></tr></tbody></table>
+<h3>2. 三個防護目標</h3>
+<p><code>AGENT Handoff Kit</code> 提出的框架以「三個防」作為核心設計目標：</p>
+<ul><li><strong>防失憶（Anti-Amnesia）</strong>：確保重要決策、狀態、任務記錄有持久化機制，不因 session 結束或 context 清空而消失。</li><li><strong>防污染（Anti-Pollution）</strong>：確保不相關的上下文不會被帶入新 session，造成 agent 誤判或分心。</li><li><strong>防錯誤接手（Anti-Mishandoff）</strong>：確保接手的 agent 能正確識別「該做什麼」「不該做什麼」「從哪裡繼續」。</li></ul>
+<h3>3. 五個治理元素</h3>
+<p>AGENT Handoff Kit 的設計包含五個操作性元素：</p>
+<ol><li><strong>新手引導</strong>：新 agent 進入既有專案時，如何快速獲取背景並開始工作（不問用戶已知的事）</li><li><strong>交接</strong>：跨 session 的結構化交接格式（完成了什麼、識別了什麼、未完成什麼）</li><li><strong>歸檔</strong>：完成狀態的保存方式，確保舊 session 的結論可被後續 agent 召回</li><li><strong>讀取</strong>：文件讀取的優先順序規則（讀哪些文件、按什麼順序、跳過什麼）</li><li><strong>跨 session 續接</strong>：從 handoff 文件恢復任務的標準流程，確保接手點正確</li></ol>
+<h3>4. Task Continuity、Personal Memory、Learning：三層記憶框架</h3>
+<p>warmwater.dev「Task Continuity」文章提出一個精準的分類，把 AI 的「記憶問題」拆成三個性質不同的問題——常被混為一談，但解法截然不同：</p>
+<table><thead><tr><th>層次</th><th>問題</th><th>本質</th><th>解法</th></tr></thead><tbody><tr><td><strong>Task Continuity</strong>（任務連續性）</td><td>AI 如何在 session 重置後接續上次的任務？</td><td>狀態傳遞問題</td><td><code>.tmp</code> 結構化交接文件</td></tr><tr><td><strong>Personal Memory</strong>（個人記憶）</td><td>AI 如何記住「這個人是誰、怎麼工作」？</td><td>個人化問題</td><td><code>CLAUDE.md</code>（行為規則）+ 個人化脈絡文件</td></tr><tr><td><strong>Learning</strong>（學習）</td><td>AI 如何從過去失敗中改進行為？</td><td>系統演化問題</td><td>Ratchet 機制（失敗 → 永久規則）</td></tr></tbody></table>
+<p><strong>為什麼要拆開</strong>：三個問題混在一起解決時，解法互相干擾。把「任務進度」塞進 CLAUDE.md 會污染行為規則層；期望 handoff 文件承擔「個人化」功能導致每次都要重新解釋工作哲學；把「學習」交給 handoff 文件則讓每份 handoff 都需要帶著歷史失敗的紀錄，不必要地膨脹。</p>
+<p><strong>對 FLUX Vault 的對應</strong>：</p>
+<ul><li>Task Continuity → <code>00 Inbox/交接-YYYY-MM-DD-sessionN.md</code>（手動版 <code>.tmp</code>）</li><li>Personal Memory → <code>CLAUDE.md</code> + <code>60 Me/白澤 - 個人化脈絡.md</code></li><li>Learning → 行為校準掃描 → <code>90 Agent/cowork-notes.md</code> + CLAUDE.md Ratchet 機制</li></ul>
+<p>（來源：warmwater.dev / 溫煜鈞；<code>https://warmwater.dev/blog/claude-code-task-continuity</code>）</p>
+<h3>5. .tmp 交接文件的四段設計原則</h3>
+<p>warmwater.dev 提出的 <code>.tmp</code> 格式聚焦在最低限度的交接信息——只包含四個段落：</p>
+<table><thead><tr><th>段落</th><th>內容</th><th>設計邏輯</th></tr></thead><tbody><tr><td><strong>Completed</strong></td><td>已完成的任務清單</td><td>避免下一個 session 重複做</td></tr><tr><td><strong>In Progress</strong></td><td>進行到一半的任務 + 當前狀態描述</td><td>明確接手點，不需要重新追蹤</td></tr><tr><td><strong>Notes for Next Session</strong></td><td>下一個 session 需要知道的注意事項</td><td>提早注入脈絡，減少探索成本</td></tr><tr><td><strong>Context to Load</strong></td><td>下一個 session 開始時應讀哪些文件（路徑列表）</td><td>存的是索引，不是知識本身</td></tr></tbody></table>
+<p><strong>「交接的是地圖，不是記憶」</strong>：第四段（Context to Load）體現了一個核心原則——handoff 文件不試圖複製 context，只告訴下一個 session「從哪裡讀什麼」。知識存在文件系統裡，handoff 只是索引。這讓 handoff 保持精簡，且在 context window 不同的情況下（不同工具、不同 session 長度）都能有效工作。</p>
+<p><strong>和 FLUX Vault 的對應</strong>：<code>交接-YYYY-MM-DD-sessionN.md</code> 的「識別/待執行」與「未完成」對應 In Progress + Notes；「下次銜接用的提示詞」附加了 Context to Load 功能。<code>.tmp</code> 的設計讓 FLUX Vault 現有格式有了理論依據，同時也指出一個潛在優化點：在交接文件中更明確地分離「索引（指針）」和「說明（脈絡）」兩種信息。</p>
+<p>（來源：warmwater.dev / 溫煜鈞；<code>https://warmwater.dev/blog/claude-code-task-continuity</code>）</p>
+<h3>6. Hook 信號通道原則：Hook 不是指令，是信號</h3>
+<p>Hook 的行為常被誤解為「Hook 觸發 → 某件事自動發生」。正確理解是：</p>
+<p><strong>Hook 只能透過 <code>stderr</code> 發送信號；LLM 決定是否採取行動。</strong></p>
+<ul><li>Hook 輸出到 stderr → Claude Code 讀到 → LLM 自行判斷要不要回應</li><li>Hook 輸出不能強制 LLM 執行指令——它只是提供信號（警告、上下文、狀態更新）</li><li>唯一能 override LLM 決策的機制：<strong><code>exit 2</code>（BLOCK）</strong><ul><li><code>exit 0</code> = 繼續執行</li><li><code>exit 2</code> = 強制中斷（只有這個能阻斷執行）</li><li>其他非零值 = 報告錯誤，但繼續執行</li></ul></li></ul>
+<p><strong>Harness 設計影響</strong>：</p>
+<ol><li>Hook 的 stderr 輸出應該寫成自然語言提示（給 LLM 看），而非機器碼</li><li>若某個行為必須被強制（不能依賴 LLM 判斷），用 <code>exit 2</code>，而非 stderr 訊息</li><li>過度依賴 stderr 而非 <code>exit 2</code> 是常見的 Hook 設計錯誤</li></ol>
+<p><strong>對 Handoff Governance 的影響</strong>：若任何 handoff 流程依賴 Hook 觸發，需要確認用的是 <code>exit 2</code>（真正強制）還是 stderr 訊息（LLM 可能忽略）。防錯誤接手的可靠程度，取決於底層 Hook 設計是否使用了正確的強制機制。</p>
+<p>（來源：warmwater.dev / 溫煜鈞；<code>https://warmwater.dev/blog/claude-code-hooks-guide</code>）</p>
+<hr>
+<h2>核心框架</h2>
+<h3>Governance = Handoff × 讀取順序 × 邊界規則</h3>
+<p>有效的 session governance 需要三個要素同時成立：</p>
+<pre><code>防失憶     = handoff 文件（什麼值得保留）+ 歸檔機制（在哪裡保留）
+防污染     = context 邊界規則（哪些不帶入新 session）+ 讀取順序（先讀什麼）
+防錯誤接手 = 新手引導文件（agent onboarding）+ 明確的任務邊界定義</code></pre>
+<p>三個防護目標是環環相扣的：</p>
+<ul><li>沒有 <strong>防失憶</strong>，handoff 文件就是無根之木</li><li>沒有 <strong>防污染</strong>，即使有完整 handoff，新 agent 也會被舊 context 干擾</li><li>沒有 <strong>防錯誤接手</strong>，新 agent 即使讀了正確文件，也可能選錯起點</li></ul>
+<hr>
+<h2>對 FLUX Vault 的應用</h2>
+<p>FLUX Vault 的設計已有對應機制，以三個防護目標檢視：</p>
+<table><thead><tr><th>防護目標</th><th>FLUX Vault 對應設計</th><th>狀態</th></tr></thead><tbody><tr><td>防失憶</td><td><code>_processing-log.md</code>（任務歸檔）、<code>交接-YYYY-MM-DD-session.md</code>（handoff 文件）</td><td>✅ 已建立</td></tr><tr><td>防污染</td><td>CLAUDE.md「Context 邊界規則（防污染）」五類禁入清單 + Subagent 邊界原則（v2.4.2，2026-06-01）</td><td>✅ 已建立</td></tr><tr><td>防錯誤接手</td><td><code>CLAUDE.md</code>（新手引導）、<code>cowork-notes.md</code>（agent-private）、handoff 銜接提示詞</td><td>✅ 已建立</td></tr></tbody></table>
+<p><strong>三個防護目標均已到位</strong>：防污染原為最弱環節（2026-05-27 建頁時僅靠短 session 習慣），2026-06-01 由 CLAUDE.md v2.4.2 新增「Context 邊界規則（防污染）」正式補上——五類禁入清單（個人識別資料、學生資料、未公開商業資訊、他人私訊、API Keys）+ Subagent 邊界原則。至此三個防護目標均有明確規則支撐。</p>
+<hr>
+<h2>我的觀點</h2>
+<blockquote><p>確認（2026-05-27）</p></blockquote>
+<p><strong>FLUX Vault 有 handoff 工具，但缺少 governance 框架語言</strong></p>
+<p>session-handoff-template、_processing-log、銜接提示詞——這些設計都是對「防失憶」和「防錯誤接手」的直覺回應。但「三個防」框架讓我第一次有辦法從設計層次評估 Vault 的 handoff 體系有沒有缺口。</p>
+<p>建頁時（2026-05-27）的結論是：Vault 在防失憶和防錯誤接手做得不錯，但在<strong>防污染</strong>方面幾乎沒有明確設計——靠的是「不要把 session 拉太長」和「需要換工具就換」的習慣，而不是明確的邊界規則。</p>
+<p><strong>防污染已從最弱環節補齊為明確規則（2026-06-01）</strong></p>
+<p>上述觀察促成了 CLAUDE.md v2.4.2 新增「Context 邊界規則（防污染）」：五類禁入清單（個人識別資料、學生資料、未公開商業資訊、他人私訊、API Keys）+ Subagent 邊界原則。原本靠習慣的防污染已被制度化——靠明確規則的系統在換工具、換人接手時才能維持一致，這正是當初識別出的風險。</p>
+<p><strong>Governance 的本質是「讓 AI 長期工作不需要用戶持續介入維護」</strong></p>
+<p>這跟 Vault 的設計哲學高度一致：系統要能在 AI 工具之間無縫轉換，用戶要能在中斷後快速恢復，而不是靠記憶或重新解釋來補救。Governance 框架是這個目標的工程化。</p>
+<p><strong>AI 主動交接：Governance 的主動形式（2026-05-28 補充）</strong></p>
+<p>Claude Taiwan 社群（羅仁宏，2026-05-28）的案例提供了一個具體的 AI 主動 handoff 場景：Claude Code 在與 Codex 的 Markdown 對話中，主動識別出「這部分交給 Codex 更合適」並提出交接建議；Codex 後來也對 Claude 做了同樣的動作。這是 handoff governance 框架中一個尚未充分討論的形式——<strong>AI 主導的交接，而非人工觸發的交接</strong>。</p>
+<p>相對於現有框架描述的「防錯誤接手」（確保接手者能識別該做什麼），AI 主動交接引入了一個新的治理問題：<strong>誰有權決定何時交接？</strong> 在人工觸發的 handoff 中，這個問題由用戶控制；在 AI 主動交接的場景中，這個問題由 AI 自行判斷——這意味著 governance 設計必須回答：AI 在什麼條件下可以主動提議交接，邊界規則是什麼。</p>
+<p>對 FLUX Vault 目前的工作流影響：現有的交接設計（handoff 文件、銜接提示詞）是人工觸發、人工確認的。羅仁宏案例暗示未來 AI 可能在長任務中自主提議「這段交給另一個 agent」，FLUX Vault 的 governance 設計是否能處理這種 AI 主動發起的交接，是值得在 session handoff governance 框架完善時預先考慮的問題。</p>
+<p>（來源：Claude Taiwan / 羅仁宏；permalink：<code>https://www.facebook.com/groups/1224997379198346/posts/1306329744398442/</code>）</p>
+<p><strong>return-by-death：「防失憶」機制的真實實作（2026-05-28 補充）</strong></p>
+<p><code>cutevisor/return-by-death</code>（Weng Visor，Claude Taiwan）是一個把防失憶機制做成可部署工具的本土案例。它的核心設計是「輪迴記憶」——對應本篇的防失憶目標：</p>
+<ul><li><strong>機制</strong>：Claude Code 透過 Telegram 運行，context 接近上限前 AI 被要求把關鍵決策、開放任務、進行中的偏好寫入 <code>past_life_memory.md</code>，然後重啟 session。新 session 讀入這份記憶，從中斷點繼續。這和 FLUX Vault 的 handoff 文件 + 銜接提示詞邏輯一致——差別在 Vault 是人工觸發，return-by-death 是 AI 在 Telegram 對話中自行觸發（用戶說「go reincarnate」）。</li><li><strong>防失憶三要素在此的對應</strong>：<code>past_life_memory.md</code> = handoff 文件；「go reincarnate」指令 = 手動觸發點；systemd service + auto-restart = 持久化機制（歸檔層）。</li></ul>
+<p><strong>安全邊界提示</strong>：此架構把 Claude Code 接進 Telegram，本質上是「可以自然語言操控的遠端 shell」，打破了 Claude Code 設計預設的 human-in-the-loop 假設。作為防失憶設計的參考有價值；若要生產部署，需加入操作白名單、強制審計日誌、無人值守期間的暫停機制。（來源：GitHub <code>https://github.com/cutevisor/return-by-death</code>；Claude Taiwan 社群 / Weng Visor）</p>
+<p><strong>Task Continuity 框架讓 Vault 的三層記憶設計有了更精確的語言（2026-05-28 補充）</strong></p>
+<p>warmwater.dev 的三層拆分（Task Continuity / Personal Memory / Learning）讓我可以更清楚地說出 Vault 在做什麼：<code>交接文件</code> 解決的是任務連續性，不是個人化；<code>CLAUDE.md + 個人化脈絡</code> 解決的是個人記憶；<code>cowork-notes.md 踩坑紀錄 + Ratchet</code> 解決的是學習。三個層次之前都存在，但沒有這套語彙就很難向外說明，也很難在設計新機制時確認「這個解法在解哪一層的問題」。</p>
+<p><strong>待深化的問題</strong>：</p>
+<ul><li>FLUX Vault 的「防污染」缺口應該如何填？→ ✅ 已完成（2026-06-01）：CLAUDE.md v2.4.2 新增「Context 邊界規則（防污染）」，明確五類不應進入 AI context 的資料類型 + Subagent 邊界原則</li><li>[x] <code>AGENT Handoff Kit</code> 的具體實作（repo/文件）→ ✅ 已結案（2026-06-10）：npm 版 <code>@adamchanadam/agent-handoff-kit</code> 已於頁內「Agent Handoff Kit — npm 驗證（2026-06-04 補充）」節驗證；skill 生態側 softaworks/agent-toolkit session-handoff 本次 repo 直讀確認屬實（1.6k★／123 forks／MIT），其「觸發條件清單」（context 將滿／milestone 完成／用戶說 save state）可對照校準 Vault 交接模板。</li></ul>
+<hr>
+<h2>可連結的主題</h2>
+<ul><li><span class="wl">Agent 記憶管理</span> — 三層記憶架構是 handoff governance 的底層理論基礎</li><li><span class="wl">AI 專案規範管理</span> — CLAUDE.md 四層結構是 Vault 的 governance 文件體系</li><li><span class="wl">AI工具 - Claude Code 長任務管理</span> — Context Hygiene 是防污染的工具層實踐</li><li><span class="wl">AI工具 - 知識庫 AI 分身設計原則</span> — 知識庫「活起來」的前提是有效的記憶治理</li></ul>
+<hr>
+<h2>Agent Handoff Kit — npm 驗證（2026-06-04 補充）</h2>
+<p>原「待補驗證」條目已由 Codex 查核確認。</p>
+<ul><li><strong>npm package</strong>：<code>@adamchanadam/agent-handoff-kit</code>（v0.3.25，2026-06-03 發布）</li><li><strong>license</strong>：MIT</li><li><strong>描述</strong>：Lightweight agent harness for project memory, handoff, and multi-session continuity</li><li><strong>安裝</strong>：<code>npx --yes @adamchanadam/agent-handoff-kit@latest init</code></li><li><strong>核心檔案結構</strong>：<code>dev/SESSION_HANDOFF.md</code>、<code>dev/PROJECT_INDEX.md</code>、<code>dev/DOC_SYNC_REGISTRY.md</code>、<code>AGENTS.md</code>、<code>CLAUDE.md</code>、<code>GEMINI.md</code>、<code>START_NEXT_SESSION_PROMPT.txt</code></li></ul>
+<p>定位對應本篇框架：<code>SESSION_HANDOFF.md</code> = 防失憶；<code>PROJECT_INDEX.md</code> = 防錯誤接手；<code>START_NEXT_SESSION_PROMPT.txt</code> = 新手引導入口。</p>
+<p><strong>保守邊界</strong>：package README 自稱早期可用版本，仍持續完善；不應視為成熟標準工具。</p>
+<hr>
+<h2>CCB / Claude Codex Bridge — 同場景對比工具（2026-06-04 補充）</h2>
+<ul><li><strong>GitHub</strong>：https://github.com/SeemSeam/claude_codex_bridge</li><li><strong>GitHub 數據（2026-06-04）</strong>：stars 2,878 / forks 283 / open issues 72 / latest release v7.2.11（2026-06-04）</li><li><strong>License</strong>：AGPL-3.0（商用/閉源封裝需另外授權）</li><li><strong>初步採用等級</strong>：<code>watch / lab trial</code></li></ul>
+<p><strong>和 Agent Handoff Kit 的設計差異</strong>：</p>
+<table><thead><tr><th>工具</th><th>核心設計</th></tr></thead><tbody><tr><td>Agent Handoff Kit</td><td>跨 session 可接續文件（<code>SESSION_HANDOFF.md</code> 等）——解決的是任務連續性，本質是文件層治理</td></tr><tr><td>CCB</td><td>同一專案內同時啟動多個真 CLI agent 的可視化 tmux orchestration——解決的是多 agent 同步運作，本質是 runtime 層協調</td></tr><tr><td>Headroom</td><td>agent context compression（CCR 可逆壓縮）——解決的是 context window 資源問題，本質是記憶壓縮層</td></tr></tbody></table>
+<p>三者互補而非競爭：Handoff Kit 管文件交接 → CCB 管 runtime 拓撲 → Headroom 管 context 壓縮。</p>
+<p><strong>CCB 正向信號</strong>：active 開發（2026-06-04 同日有 push + release）、有 CI workflows、README 操作清楚、支援 worktree 隔離。</p>
+<p><strong>CCB 風險信號</strong>：72 open issues、v7.2.x 多版 superseded、無 <code>SECURITY.md</code>、主 contributor 集中（bus factor 偏低）、native Windows 支援需走 WSL。</p>
+<p>建議先在 disposable repo / toy project 試 <code>main:codex + reviewer:claude</code> 基本閉環，不直接接正式商業專案。</p>
+<hr>
+<h2>Trellis — 開發專案跨 session context 持久化（2026-06-05 補充）</h2>
+<ul><li><strong>GitHub</strong>：https://github.com/mindfold-ai/Trellis</li><li><strong>來源</strong>：Threads @govin999999（2026-06-03）</li><li><strong>定位</strong>：在專案內生成 <code>.trellis/</code> 目錄，把需求、規範、任務、進度、工作記錄沉澱下來。Claude Code 下次進來直接讀取，不需重新解釋專案背景。</li></ul>
+<p><strong>和本篇框架的對應</strong>：</p>
+<ul><li><code>.trellis/</code> = 防失憶層：需求、任務、進度的持久化</li><li>「先規劃 → 再實現 → 再驗證 → 把經驗寫回專案」工作流 = 防錯誤接手的設計哲學</li></ul>
+<p><strong>和 Agent Handoff Kit 的差異</strong>：</p>
+<table><thead><tr><th>工具</th><th>核心設計</th><th>場景</th></tr></thead><tbody><tr><td>Agent Handoff Kit</td><td>npm package，跨 session 文件體系（SESSION_HANDOFF.md 等）</td><td>任意專案，輕量導入</td></tr><tr><td>Trellis</td><td><code>.trellis/</code> 目錄，含需求 + 規範 + 任務 + 進度全生命週期</td><td>深度整合開發工作流</td></tr></tbody></table>
+<p><strong>對 DoodleFocus / 補習班系統的應用評估</strong>：Trellis 的「把開發決策寫進專案目錄」設計和 FLUX Vault 的 <code>CLAUDE.md</code> 哲學一致，適合在新一輪 DoodleFocus 開發啟動時試用。保守邊界：先在 feature branch 試，確認格式穩定後再整合進主開發流程。</p>
+<p><em>2026-06-10 通膨重審誤降，同日經 Codex 複查恢復 evergreen：頁內有明確實踐證據（三防檢視表已落地、防污染缺口由本頁分析驅動 CLAUDE.md v2.4.2 結案）。教訓＝證據掃描不能只靠 regex pattern，borderline 一律人工讀頁。</em></p></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard" href="/notes/agent-harness-engineering.html">📚 Agent Harness Engineering</a><a class="relcard" href="/notes/claude-code-multi-agent.html">📚 Claude Code 多代理工程團隊方法論</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fplace">Threads（待補）</span><span class="fplace">X（待補）</span><span class="fplace">GitHub（待補）</span><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>

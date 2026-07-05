@@ -1,0 +1,121 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI 影片製作一條龍工作流 | 白澤的知識城鎮</title><meta name="description" content="AI工具 AI 影片製作一條龍工作流 核心主張 ：AI 只是助手，真正最重要的還是故事感、腳本、分鏡、美感、節奏。就像指揮一整個 AI 團隊：GPT 像編劇，Claude 像企劃總監，Gemini 像分鏡助手，Kling / Seedance 像攝影師，CapCut 像剪輯室。 來源背景 Threa …"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9B%B2%3C/text%3E%3C/svg%3E"><style>
+*{box-sizing:border-box;}
+body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:#0e1726;color:#e7e0cf;}
+.wrap{max-width:820px;margin:0 auto;padding:96px 20px 70px;}
+.ph1{color:#ffd877;font-size:30px;line-height:1.25;margin:6px 0 14px;}
+.plead{color:#c3b998;font-size:16px;line-height:1.75;margin:0 0 24px;}
+.npill{display:inline-block;background:rgba(201,161,74,.16);color:#ffd877;border:1px solid rgba(201,161,74,.35);border-radius:999px;padding:4px 13px;font-size:13px;font-weight:700;margin-bottom:10px;}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+.fbtn{background:rgba(255,255,255,.05);color:#d9cdb0;border:1px solid rgba(201,161,74,.3);border-radius:999px;padding:7px 14px;font-size:13.5px;cursor:pointer;}
+.fbtn.active,.fbtn:hover{background:#c9a14a;color:#241a10;font-weight:700;}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.ncard{display:block;background:linear-gradient(160deg,#16233a,#131d30);border:1px solid rgba(201,161,74,.18);border-radius:14px;padding:18px;text-decoration:none;transition:.16s;}
+.ncard:hover{transform:translateY(-4px);border-color:rgba(201,161,74,.5);box-shadow:0 14px 26px rgba(0,0,0,.4);}
+.ntitle{color:#f3e7cc;font-weight:800;font-size:16.5px;line-height:1.4;margin:2px 0 8px;}
+.nteaser{color:#a9b7c9;font-size:13.5px;line-height:1.7;}
+.note{background:#fbf6ea;color:#3a2f23;border-radius:16px;padding:30px 34px;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.note .npill{margin-bottom:12px;} .note .ph1{color:#3a2f23;}
+.nmeta{margin:0 0 18px;} .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px;background:#efe4c8;color:#7a6228;}
+.prose{line-height:1.78;font-size:16px;color:#3a2f23;}
+.prose h1,.prose h2,.prose h3{line-height:1.35;margin:1.4em 0 .5em;color:#2a2317;}
+.prose h1{font-size:24px;border-bottom:2px solid #e3d7bd;padding-bottom:.2em;} .prose h2{font-size:20px;} .prose h3{font-size:17px;}
+.prose table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;}
+.prose th,.prose td{border:1px solid #e3d7bd;padding:7px 11px;text-align:left;vertical-align:top;} .prose th{background:#efe4c8;}
+.prose code{background:#efe7d4;padding:2px 6px;border-radius:5px;font-size:.9em;}
+.prose pre{background:#2a2317;color:#f3e7cc;padding:14px 16px;border-radius:9px;overflow:auto;} .prose pre code{background:none;color:inherit;}
+.prose blockquote{border-left:4px solid #c9a14a;margin:1em 0;padding:.2em 1em;color:#6a5b3e;background:#f4ecd8;border-radius:0 8px 8px 0;}
+.prose ul,.prose ol{padding-left:1.4em;} .prose li{margin:.3em 0;}
+.prose a{color:#96702a;} .wl{background:#e9dcbb;border-radius:4px;padding:1px 6px;font-size:.92em;color:#6a5526;}
+.prose img{max-width:100%;border-radius:8px;}
+.afoot{margin-top:34px;} .afoot h3{color:#ffd877;font-size:17px;margin:0 0 12px;}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;}
+.relcard{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(201,161,74,.22);border-radius:11px;padding:13px 15px;color:#d9cdb0;text-decoration:none;font-size:14px;font-weight:600;transition:.15s;}
+.relcard:hover{border-color:rgba(201,161,74,.55);color:#fff;} .relcard.locked{color:#9db0c8;background:rgba(255,255,255,.03);}
+.cta-wide{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:10px;}
+.backmap{color:#c9a14a;text-decoration:none;font-size:14.5px;} .backmap:hover{text-decoration:underline;}
+.notice{background:rgba(201,161,74,.1);border:1px solid rgba(201,161,74,.3);border-radius:11px;padding:16px 18px;color:#c9bb9c;font-size:15px;line-height:1.7;margin:0 0 22px;}
+.lnk{color:#c9a14a;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(14,23,38,.86);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,74,.25);}
+.navinner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:11px 20px;position:relative;}
+.brand{color:#ffd877;font-weight:800;text-decoration:none;font-size:16px;white-space:nowrap;}
+.navtog{display:none;} .hamb{display:none;cursor:pointer;color:#eadfc6;font-size:22px;margin-left:auto;padding:0 6px;user-select:none;}
+.navlinks{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.navlink{color:#d9cdb0;text-decoration:none;font-size:14.5px;padding:7px 12px;border-radius:999px;transition:.15s;}
+.navlink:hover{background:rgba(255,247,214,.1);color:#fff;} .navlink.active{color:#ffd877;}
+.navcta{background:#c9a14a;color:#241a10;font-weight:800;text-decoration:none;font-size:14px;padding:8px 15px;border-radius:999px;white-space:nowrap;}
+.navcta:hover{filter:brightness(1.07);}
+@media(max-width:680px){
+ .hamb{display:block;}
+ .navlinks{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(14,23,38,.98);border-bottom:1px solid rgba(201,161,74,.25);padding:8px 14px 14px;display:none;margin-left:0;}
+ .navtog:checked ~ .navlinks{display:flex;}
+ .navlink,.navcta{width:100%;text-align:center;margin:4px 0;box-sizing:border-box;}
+}
+.site-footer{background:#0b1320;border-top:1px solid rgba(201,161,74,.2);color:#9db0c8;padding:34px 20px;}
+.footinner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 30px;align-items:baseline;font-size:14px;}
+.site-footer a{color:#c9a14a;text-decoration:none;} .site-footer a:hover{text-decoration:underline;}
+.footinner .fplace{color:#67788f;} .footinner .fline{color:#c9bb9c;} .footinner .fcopy{margin-left:auto;color:#6d7f96;}
+.ctaBtn2{display:inline-block;background:#c9a14a;color:#241a10;font-weight:800;padding:12px 24px;border-radius:11px;text-decoration:none;font-size:15.5px;box-shadow:0 6px 16px rgba(0,0,0,.4);transition:.15s;}
+.ctaBtn2:hover{filter:brightness(1.06);transform:translateY(-1px);}
+</style><link rel="canonical" href="https://baize.systems/notes/ai-video-pipeline.html"><meta property="og:title" content="AI 影片製作一條龍工作流"><meta property="og:description" content="AI工具 AI 影片製作一條龍工作流 核心主張 ：AI 只是助手，真正最重要的還是故事感、腳本、分鏡、美感、節奏。就像指揮一整個 AI 團隊：GPT 像編劇，Claude 像企劃總監，Gemini 像分鏡助手，Kling / Seedance 像攝影師，CapCut 像剪輯室。 來源背景 Threa …"><meta property="og:type" content="article"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "AI 影片製作一條龍工作流", "author": {"@type": "Person", "name": "白澤"}, "publisher": {"@type": "Organization", "name": "baize.systems"}, "url": "https://baize.systems/notes/ai-video-pipeline.html", "inLanguage": "zh-Hant", "description": "AI工具 AI 影片製作一條龍工作流 核心主張 ：AI 只是助手，真正最重要的還是故事感、腳本、分鏡、美感、節奏。就像指揮一整個 AI 團隊：GPT 像編劇，Claude 像企劃總監，Gemini 像分鏡助手，Kling / Seedance 像攝影師，CapCut 像剪輯室。 來源背景 Threa …"}</script></head><body class="pg"><nav class="topbar"><div class="navinner"><a class="brand" href="/">白澤 · 知識城鎮</a><input type="checkbox" id="navtog" class="navtog"><label for="navtog" class="hamb">☰</label><div class="navlinks"><a class="navlink" href="/">⛲ 地圖</a><a class="navlink" href="/about.html">關於</a><a class="navlink" href="/work.html">作品</a><a class="navlink active" href="/notes/">筆記</a><a class="navcta" href="/build.html">🤝 1:1 代建服務</a></div></div></nav><main class="wrap"><article class="note"><div class="npill">📚 AI工具</div><h1 class="ph1">AI 影片製作一條龍工作流</h1><div class="nmeta"><span class="badge">evergreen</span></div><div class="prose"><h1>AI工具 - AI 影片製作一條龍工作流</h1>
+<blockquote><p><strong>核心主張</strong>：AI 只是助手，真正最重要的還是故事感、腳本、分鏡、美感、節奏。就像指揮一整個 AI 團隊：GPT 像編劇，Claude 像企劃總監，Gemini 像分鏡助手，Kling / Seedance 像攝影師，CapCut 像剪輯室。</p></blockquote>
+<hr>
+<h2>來源背景</h2>
+<p>Threads @jworld_49（JW），2026-05-19 提問：「好好奇大家現在用AI做影片都怎麼做，從0開始一條龍，想說可以集合各方的方法來統整一下」。貼文 29 萬次瀏覽、768 則留言，作者在 2026-05-22 釘選統整精華。</p>
+<hr>
+<h2>五步一條龍工作流（作者統整版 2026-05-22）</h2>
+<h3>1️⃣ 靈感 / 故事發想</h3>
+<p>自己想、生活觀察、品牌概念。這一步 AI 可以協助但不能替代——核心創意仍需人主導。</p>
+<h3>2️⃣ GPT / Claude / Gemini 整理腳本</h3>
+<p>把零碎想法整理成：</p>
+<ul><li>劇情、旁白</li><li>角色設定</li><li>畫面描述</li><li>分鏡節奏</li></ul>
+<p><strong>社群心得</strong>：提示詞品質決定影片成功率。AI 生提示詞後仍需人工調整——例如 ChatGPT 一次給 5-6 個動作，但 10 秒影片只能跑 2-3 個動作，需要刪減。</p>
+<p><strong>分鏡語法示範</strong>（catbubu04 分享）：</p>
+<pre><code>shot 1，3s，畫面風格：紅黑色調，東方神秘感，電影感光影，高對比
+全黑畫面，隨著低沉鼓聲慢慢浮現絲綢，在黑暗中緩緩飄動（鏡頭慢推進）
+
+shot 2，3s，第二聲鼓聲落下，絲綢開始旋轉，黑色煙霧與絲綢交織...</code></pre>
+<p>每個 shot 明確標注：時長、鏡頭動作、畫面細節，AI 照著跑成功率更高。</p>
+<h3>3️⃣ 先生成分鏡圖 / 角色圖</h3>
+<p>先固定角色外形、場景、風格，再生影片，一致性更好。</p>
+<p>常用工具：</p>
+<ul><li><strong>GPT 生圖</strong>（ChatGPT image generation）</li><li><strong>Gemini</strong></li><li><strong>Midjourney</strong></li><li><strong>Nano Banana Pro</strong></li></ul>
+<h3>4️⃣ 丟進 AI 影片工具生成影片</h3>
+<p>社群中提到最多的工具：</p>
+<table><thead><tr><th>工具</th><th>特色</th><th>備注</th></tr></thead><tbody><tr><td><strong>Seedance</strong></td><td>高品質，主流首選</td><td>較貴：120–240 點/支，越長越貴</td></tr><tr><td><strong>Kling</strong>（快手）</td><td>text-to-video + image animation</td><td>社群高頻提及</td></tr><tr><td><strong>即夢</strong></td><td>字節跳動出品</td><td>免費額度較多</td></tr><tr><td><strong>PixVerse</strong></td><td>多風格支援</td><td>入門友善</td></tr><tr><td><strong>Higgsfield</strong></td><td>較新</td><td>風格化強</td></tr><tr><td><strong>Grok</strong>（xAI）</td><td>圖轉影片</td><td>免費額度，用來練習</td></tr><tr><td><strong>Runway</strong></td><td>老牌，創意影片</td><td></td></tr><tr><td><strong>Veo</strong>（Google）</td><td>高品質</td><td></td></tr></tbody></table>
+<p><strong>社群心得</strong>：Seedance 效果好但成本高，很多人先用 Grok 練習提示詞，確認方向後再花點數跑 Seedance。</p>
+<h3>5️⃣ 剪輯軟體整合收尾</h3>
+<ul><li>CapCut / 剪映（最多人用，AI 輔助字幕/音效）</li><li>Perfect Video</li><li>快影</li></ul>
+<p>收尾工作：字幕、節奏、音樂、轉場、情緒控制。</p>
+<hr>
+<h2>AI 分工角色框架</h2>
+<p>作者（jworld_49）的比喻，把各工具比作影視製作崗位：</p>
+<table><thead><tr><th>AI 工具</th><th>類比角色</th></tr></thead><tbody><tr><td>GPT</td><td>編劇</td></tr><tr><td>Claude</td><td>企劃總監</td></tr><tr><td>Gemini</td><td>分鏡助手</td></tr><tr><td>Kling / Seedance</td><td>攝影師</td></tr><tr><td>CapCut</td><td>剪輯室</td></tr></tbody></table>
+<hr>
+<h2>常見工作流變體（留言整理）</h2>
+<p><strong>alicehu721 的流程</strong>： ChatGPT 生角色卡/分鏡圖 → Grok 圖轉影片 → 快影剪輯</p>
+<p><strong>catbubu04 的流程</strong>： 先想構圖（完整 shot-by-shot 語法）→ 丟 AI 生成 → 微調</p>
+<hr>
+<h2>對 FLUX Vault / Hahow 課程的應用</h2>
+<p><strong>Hahow 課程宣傳</strong>：課程封面影片、宣傳短片，可用「1→2→4→5」的流程快速製作：自己定主題 → Claude 整腳本 → Kling/即夢 生影片 → CapCut 收尾。即夢免費額度可先測試，再決定是否花費 Seedance。</p>
+<p><strong>局限</strong>：這個工作流偏向社群短影音，課程內容本身（教學影片）需要不同的製作邏輯。</p>
+<hr>
+<h2>我的觀點</h2>
+<p><em>確認：2026-05-31（對話深化）</em></p>
+<p><strong>這篇是 Hahow 宣傳短片的執行 SOP，不只是研究備忘</strong></p>
+<p>這份統整的最大價值是「工具角色分工框架」——把 GPT/Claude/Gemini/Kling/CapCut 各放在哪個位置，讓流程有結構，不是亂試。</p>
+<p><strong>定位更新</strong>：我打算在 Hahow 課程上線時自己做宣傳短片，所以這篇不是「以後可能用到」的資料，而是上線前要實際執行的 SOP。實際工作流：自己定主題 → Claude 整腳本 → 即夢（免費）先跑測試版 → 確認方向後 Kling 或 Seedance 出正式版 → CapCut 收尾。Seedance 成本（120–240 點/支）需要在宣傳預算裡評估，初期練習階段優先用即夢。</p>
+<p><strong>一個核心立場</strong>：「AI 只是助手，故事感/腳本/節奏最重要」——這和我對 AI 工具的整體立場一致，工具服務於判斷，不替代判斷。宣傳短片的核心仍然是「能不能讓看到的人想買課程」，AI 只是讓製作成本降低，不自動讓內容有說服力。</p>
+<p><strong>待執行</strong>：Hahow 課程上線前，以本篇為 SOP，跑一遍完整流程。第一支先做最短版（15–30 秒），測試提示詞→影片的轉換效率，再決定是否擴大製作。</p>
+<hr>
+<h2>video-autopilot-kit：CapCut + Computer Use 自動化路線</h2>
+<p><em>補入：2026-06-05（來源：GitHub Hao0321/video-autopilot-kit，34 stars，MIT，最後 push 2026-06-02；使用者截圖補充引入）</em></p>
+<p><code>video-autopilot-kit</code> 是以 CapCut Desktop + Computer Use 為核心的 YouTube / 短影音自動化框架，ffmpeg 負責匯出後處理，SETUP 問卷把空白模板轉成個人化系統。</p>
+<p><strong>關鍵限制（重要）</strong>：</p>
+<ul><li><strong>CapCut 沒有公開 API</strong>——這個框架的「自動化」實質上是 AI 操作 CapCut GUI（Computer Use）</li><li>這意味著穩定性依賴 CapCut 的 UI 結構，每次 CapCut 更新介面都可能造成自動化中斷</li><li>和有 API 的工具（如 ffmpeg）相比，GUI 自動化的維護成本明顯更高</li></ul>
+<p><strong>對現有工作流的補充</strong>：</p>
+<ul><li>現有 SOP 是：腳本 → 即夢/Kling 生成影片片段 → CapCut 手工剪輯</li><li>video-autopilot-kit 試圖自動化 CapCut 剪輯這一步，但 GUI 依賴的穩定性需要實測確認</li><li>優先評估場景：Hahow 宣傳短片的重複性剪輯步驟（片段組合、字幕添加）</li></ul>
+<hr>
+<h2>可連結的主題</h2>
+<ul><li><span class="wl">AI工具 - 一人公司 AI 工作術與知識庫地基</span> — 雷蒙的 AI 工作流同樣強調 Skills 分工</li><li><span class="wl">Open Design 本地優先設計 Agent</span> — AI 設計工具的類似分工邏輯</li><li><span class="wl">AI工具 - AI 使用可優化點彙整</span> — 影片製作是未來可擴展的 AI 應用場景</li></ul>
+<p><em>2026-06-10 evergreen 通膨重審：降回 developed（頁內無真實使用/實測記錄）。升回條件＝觀點經真實使用驗證並記錄於頁內＋快照事實複查。</em></p></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/agent-harness-engineering.html">📚 Agent Harness Engineering</a><a class="relcard" href="/notes/agent-session-handoff-governance.html">📚 Agent Session Handoff Governance</a><a class="relcard" href="/notes/claude-code-multi-agent.html">📚 Claude Code 多代理工程團隊方法論</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fplace">Threads（待補）</span><span class="fplace">X（待補）</span><span class="fplace">GitHub（待補）</span><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>

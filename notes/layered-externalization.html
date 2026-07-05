@@ -1,0 +1,113 @@
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>分層外置原則 | 白澤的知識城鎮</title><meta name="description" content="概念 分層外置原則 不是所有知識都適合外置。判斷依據來自兩個維度： 取用速度需求 × 使用前的轉化程度 。需要即時調用且必須轉化才能使用的知識，必須內化；可以延遲取用、不需再加工的知識，可以安全外置。人類大腦的記憶分層系統本身就是這個原則的生物實現。 核心框架：速度 × 轉化 2×2 高轉化（使用時 …"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9B%B2%3C/text%3E%3C/svg%3E"><style>
+*{box-sizing:border-box;}
+body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:#0e1726;color:#e7e0cf;}
+.wrap{max-width:820px;margin:0 auto;padding:96px 20px 70px;}
+.ph1{color:#ffd877;font-size:30px;line-height:1.25;margin:6px 0 14px;}
+.plead{color:#c3b998;font-size:16px;line-height:1.75;margin:0 0 24px;}
+.npill{display:inline-block;background:rgba(201,161,74,.16);color:#ffd877;border:1px solid rgba(201,161,74,.35);border-radius:999px;padding:4px 13px;font-size:13px;font-weight:700;margin-bottom:10px;}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 22px;}
+.fbtn{background:rgba(255,255,255,.05);color:#d9cdb0;border:1px solid rgba(201,161,74,.3);border-radius:999px;padding:7px 14px;font-size:13.5px;cursor:pointer;}
+.fbtn.active,.fbtn:hover{background:#c9a14a;color:#241a10;font-weight:700;}
+.ngrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;}
+.ncard{display:block;background:linear-gradient(160deg,#16233a,#131d30);border:1px solid rgba(201,161,74,.18);border-radius:14px;padding:18px;text-decoration:none;transition:.16s;}
+.ncard:hover{transform:translateY(-4px);border-color:rgba(201,161,74,.5);box-shadow:0 14px 26px rgba(0,0,0,.4);}
+.ntitle{color:#f3e7cc;font-weight:800;font-size:16.5px;line-height:1.4;margin:2px 0 8px;}
+.nteaser{color:#a9b7c9;font-size:13.5px;line-height:1.7;}
+.note{background:#fbf6ea;color:#3a2f23;border-radius:16px;padding:30px 34px;box-shadow:0 20px 50px rgba(0,0,0,.4);}
+.note .npill{margin-bottom:12px;} .note .ph1{color:#3a2f23;}
+.nmeta{margin:0 0 18px;} .badge{display:inline-block;font-size:11.5px;font-weight:700;padding:2px 10px;border-radius:999px;background:#efe4c8;color:#7a6228;}
+.prose{line-height:1.78;font-size:16px;color:#3a2f23;}
+.prose h1,.prose h2,.prose h3{line-height:1.35;margin:1.4em 0 .5em;color:#2a2317;}
+.prose h1{font-size:24px;border-bottom:2px solid #e3d7bd;padding-bottom:.2em;} .prose h2{font-size:20px;} .prose h3{font-size:17px;}
+.prose table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;}
+.prose th,.prose td{border:1px solid #e3d7bd;padding:7px 11px;text-align:left;vertical-align:top;} .prose th{background:#efe4c8;}
+.prose code{background:#efe7d4;padding:2px 6px;border-radius:5px;font-size:.9em;}
+.prose pre{background:#2a2317;color:#f3e7cc;padding:14px 16px;border-radius:9px;overflow:auto;} .prose pre code{background:none;color:inherit;}
+.prose blockquote{border-left:4px solid #c9a14a;margin:1em 0;padding:.2em 1em;color:#6a5b3e;background:#f4ecd8;border-radius:0 8px 8px 0;}
+.prose ul,.prose ol{padding-left:1.4em;} .prose li{margin:.3em 0;}
+.prose a{color:#96702a;} .wl{background:#e9dcbb;border-radius:4px;padding:1px 6px;font-size:.92em;color:#6a5526;}
+.prose img{max-width:100%;border-radius:8px;}
+.afoot{margin-top:34px;} .afoot h3{color:#ffd877;font-size:17px;margin:0 0 12px;}
+.relgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;margin-bottom:26px;}
+.relcard{display:block;background:rgba(255,255,255,.05);border:1px solid rgba(201,161,74,.22);border-radius:11px;padding:13px 15px;color:#d9cdb0;text-decoration:none;font-size:14px;font-weight:600;transition:.15s;}
+.relcard:hover{border-color:rgba(201,161,74,.55);color:#fff;} .relcard.locked{color:#9db0c8;background:rgba(255,255,255,.03);}
+.cta-wide{display:flex;flex-wrap:wrap;gap:14px 20px;align-items:center;margin-top:10px;}
+.backmap{color:#c9a14a;text-decoration:none;font-size:14.5px;} .backmap:hover{text-decoration:underline;}
+.notice{background:rgba(201,161,74,.1);border:1px solid rgba(201,161,74,.3);border-radius:11px;padding:16px 18px;color:#c9bb9c;font-size:15px;line-height:1.7;margin:0 0 22px;}
+.lnk{color:#c9a14a;}
+
+.topbar{position:fixed;top:0;left:0;right:0;z-index:30;background:rgba(14,23,38,.86);backdrop-filter:blur(8px);border-bottom:1px solid rgba(201,161,74,.25);}
+.navinner{max-width:1100px;margin:0 auto;display:flex;align-items:center;gap:14px;padding:11px 20px;position:relative;}
+.brand{color:#ffd877;font-weight:800;text-decoration:none;font-size:16px;white-space:nowrap;}
+.navtog{display:none;} .hamb{display:none;cursor:pointer;color:#eadfc6;font-size:22px;margin-left:auto;padding:0 6px;user-select:none;}
+.navlinks{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.navlink{color:#d9cdb0;text-decoration:none;font-size:14.5px;padding:7px 12px;border-radius:999px;transition:.15s;}
+.navlink:hover{background:rgba(255,247,214,.1);color:#fff;} .navlink.active{color:#ffd877;}
+.navcta{background:#c9a14a;color:#241a10;font-weight:800;text-decoration:none;font-size:14px;padding:8px 15px;border-radius:999px;white-space:nowrap;}
+.navcta:hover{filter:brightness(1.07);}
+@media(max-width:680px){
+ .hamb{display:block;}
+ .navlinks{position:absolute;top:100%;left:0;right:0;flex-direction:column;align-items:stretch;gap:0;background:rgba(14,23,38,.98);border-bottom:1px solid rgba(201,161,74,.25);padding:8px 14px 14px;display:none;margin-left:0;}
+ .navtog:checked ~ .navlinks{display:flex;}
+ .navlink,.navcta{width:100%;text-align:center;margin:4px 0;box-sizing:border-box;}
+}
+.site-footer{background:#0b1320;border-top:1px solid rgba(201,161,74,.2);color:#9db0c8;padding:34px 20px;}
+.footinner{max-width:1100px;margin:0 auto;display:flex;flex-wrap:wrap;gap:14px 30px;align-items:baseline;font-size:14px;}
+.site-footer a{color:#c9a14a;text-decoration:none;} .site-footer a:hover{text-decoration:underline;}
+.footinner .fplace{color:#67788f;} .footinner .fline{color:#c9bb9c;} .footinner .fcopy{margin-left:auto;color:#6d7f96;}
+.ctaBtn2{display:inline-block;background:#c9a14a;color:#241a10;font-weight:800;padding:12px 24px;border-radius:11px;text-decoration:none;font-size:15.5px;box-shadow:0 6px 16px rgba(0,0,0,.4);transition:.15s;}
+.ctaBtn2:hover{filter:brightness(1.06);transform:translateY(-1px);}
+</style><link rel="canonical" href="https://baize.systems/notes/layered-externalization.html"><meta property="og:title" content="分層外置原則"><meta property="og:description" content="概念 分層外置原則 不是所有知識都適合外置。判斷依據來自兩個維度： 取用速度需求 × 使用前的轉化程度 。需要即時調用且必須轉化才能使用的知識，必須內化；可以延遲取用、不需再加工的知識，可以安全外置。人類大腦的記憶分層系統本身就是這個原則的生物實現。 核心框架：速度 × 轉化 2×2 高轉化（使用時 …"><meta property="og:type" content="article"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "分層外置原則", "author": {"@type": "Person", "name": "白澤"}, "publisher": {"@type": "Organization", "name": "baize.systems"}, "url": "https://baize.systems/notes/layered-externalization.html", "inLanguage": "zh-Hant", "description": "概念 分層外置原則 不是所有知識都適合外置。判斷依據來自兩個維度： 取用速度需求 × 使用前的轉化程度 。需要即時調用且必須轉化才能使用的知識，必須內化；可以延遲取用、不需再加工的知識，可以安全外置。人類大腦的記憶分層系統本身就是這個原則的生物實現。 核心框架：速度 × 轉化 2×2 高轉化（使用時 …"}</script></head><body class="pg"><nav class="topbar"><div class="navinner"><a class="brand" href="/">白澤 · 知識城鎮</a><input type="checkbox" id="navtog" class="navtog"><label for="navtog" class="hamb">☰</label><div class="navlinks"><a class="navlink" href="/">⛲ 地圖</a><a class="navlink" href="/about.html">關於</a><a class="navlink" href="/work.html">作品</a><a class="navlink active" href="/notes/">筆記</a><a class="navcta" href="/build.html">🤝 1:1 代建服務</a></div></div></nav><main class="wrap"><article class="note"><div class="npill">🏛️ 概念</div><h1 class="ph1">分層外置原則</h1><div class="nmeta"><span class="badge">evergreen</span></div><div class="prose"><h1>概念 - 分層外置原則</h1>
+<blockquote><p>不是所有知識都適合外置。判斷依據來自兩個維度：<strong>取用速度需求</strong> × <strong>使用前的轉化程度</strong>。需要即時調用且必須轉化才能使用的知識，必須內化；可以延遲取用、不需再加工的知識，可以安全外置。人類大腦的記憶分層系統本身就是這個原則的生物實現。</p></blockquote>
+<hr>
+<h2>核心框架：速度 × 轉化 2×2</h2>
+<table><thead><tr><th></th><th>高轉化（使用時需要判斷 / 創造力）</th><th>低轉化（直接調用即可）</th></tr></thead><tbody><tr><td><strong>高速需求（即時使用）</strong></td><td>🔴 <strong>必須內化</strong>：判斷框架、核心立場、批判性思維</td><td>🟡 <strong>技能化</strong>：工作習慣、操作程序、反射性技能</td></tr><tr><td><strong>低速需求（可延遲取用）</strong></td><td>🟡 <strong>深度消化後可外置摘要</strong>：複雜理論、研究方法</td><td>🟢 <strong>安全外置</strong>：數字、參考資料、事實性知識</td></tr></tbody></table>
+<p><strong>判斷問題</strong>：「如果我在用到這個知識的當下，需要多快取用、需要做多少加工才能用？」</p>
+<hr>
+<h2>人類大腦的分層記憶：底層邏輯</h2>
+<p>大腦本來就沒有把所有記憶存在同一個地方。認知科學識別出幾種性質不同的記憶系統，各有不同的存取速度與使用方式：</p>
+<table><thead><tr><th>記憶系統</th><th>特性</th><th>2×2 對應象限</th></tr></thead><tbody><tr><td><strong>工作記憶</strong>（Working Memory）</td><td>容量極小、速度極快、揮發性高</td><td>處理層，不是儲存層</td></tr><tr><td><strong>程序記憶</strong>（Procedural Memory）</td><td>技能記憶；不需有意識提取，自動觸發</td><td>高速 × 低轉化 → 技能化</td></tr><tr><td><strong>語意記憶</strong>（Semantic Memory）</td><td>事實與概念；可延遲取用，不需轉化</td><td>低速 × 低轉化 → 安全外置</td></tr><tr><td><strong>情節記憶</strong>（Episodic Memory）</td><td>個人經歷與脈絡；半結構化</td><td>低速 × 高轉化 → 消化後外置摘要</td></tr><tr><td><strong>執行功能 / 判斷系統</strong>（前額葉）</td><td>框架性推理；必須在判斷當下即時運作</td><td>高速 × 高轉化 → 必須內化</td></tr></tbody></table>
+<p><strong>核心洞察</strong>：遺忘不是問題，錯誤分配才是問題。大腦的遺忘機制本質上是一種「外置訊號」——反覆遺忘的東西，是系統在告訴你「這個不需要佔腦容量，放到外部系統」。真正需要留在大腦的東西通常不需要特別刻意記，它會透過反覆使用在實踐中被鞏固。</p>
+<hr>
+<h2>Vault 的分層外置實作</h2>
+<p>FLUX Vault 的架構設計是對上述框架的直接實現：</p>
+<table><thead><tr><th>大腦記憶系統</th><th>Vault 對應層</th><th>存放內容</th></tr></thead><tbody><tr><td>工作記憶</td><td>context window + <code>00 Inbox/</code> 交接文件</td><td>當前任務脈絡、短期待辦</td></tr><tr><td>程序記憶</td><td><code>CLAUDE.md</code> + <code>cowork-notes.md</code></td><td>AI 行為規則、工作模式（讓 AI 自動執行，不需每次重新說明）</td></tr><tr><td>語意記憶</td><td><code>20 wiki/</code></td><td>概念知識、工具評估、觀察事實</td></tr><tr><td>情節記憶</td><td><code>10 raw/</code> + <code>60 Me/</code></td><td>個人脈絡、來源材料、歷史決策記錄</td></tr><tr><td>判斷系統</td><td><strong>必須內化，不放 Vault</strong></td><td>批判性框架、個人核心立場、價值觀</td></tr></tbody></table>
+<p><strong>分層外置的關鍵不是「存什麼」，而是「什麼東西要留在腦裡」</strong>。Vault 的成功標準不是存了多少，而是存進去的東西有沒有釋放腦容量去做更高階的判斷。</p>
+<hr>
+<h2>應用場景：「AI 不遺忘」是優勢嗎？</h2>
+<p>常見論點：AI 不會遺忘 = 優勢，應該讓 AI 記住所有事情。</p>
+<p>用分層外置原則評估：</p>
+<table><thead><tr><th>記憶類型</th><th>AI 不遺忘的幫助程度</th><th>原因</th></tr></thead><tbody><tr><td>語意記憶（事實、知識）</td><td>✅ 很有幫助</td><td>這類知識本來就適合外置，AI 幫你記省腦力</td></tr><tr><td>情節記憶（脈絡、歷史）</td><td>✅ 有幫助</td><td>handoff 文件讓 AI 記住跨 session 脈絡，減少重複說明</td></tr><tr><td>程序記憶（工作習慣）</td><td>✅ 有幫助</td><td>CLAUDE.md 讓 AI 記住行為規則，自動執行</td></tr><tr><td>判斷框架（立場、批判力）</td><td>⚠️ <strong>無法替代</strong></td><td>AI 記得但你沒消化，遇到判斷情境時仍然無法即時使用——等於學習沒有發生</td></tr></tbody></table>
+<p><strong>結論</strong>：「AI 不遺忘是優勢」是部分正確的論述。它對語意記憶層非常有幫助，但判斷框架層必須由使用者自己內化——AI 記得不等於你學到了。Vault 的學習回路設計（弱點知識識別 + 深化問題 + weekly digest）正是為了解決這個盲點：不只存，也要觸發真正的學習。</p>
+<hr>
+<h2>外部呼應：知識分層對抗「AI 資料爆炸」</h2>
+<p><strong>（2026-06-17，Threads @stay_hungry_2025）</strong> 這篇主張用「Tiered Knowledge（知識分層）＋語意去重」對抗 AI 時代的資料爆炸——AI 讓收集／產出知識的成本趨近於零，瓶頸從「取得」變成「不被淹沒」。</p>
+<p>與本頁的關係：本頁的分層問的是「<strong>什麼進腦、什麼進系統</strong>」（內化 vs 外置）；這篇補的是外置層<strong>內部的第二道分層——熱/冷分層＋語意去重</strong>，管「外置之後怎麼不被自己的資料淹死」。對 Vault 直接對應：冷熱分層＝<code>00 Inbox</code>(熱)→<code>20 wiki</code>(溫)→<code>90 Agent/archive</code>(冷)；語意去重＝入庫價值閘門的「重複/增量」判定＋<code>_keyword-index.md</code> 比對。</p>
+<p><strong>設計意涵</strong>：外置不是終點，外置物本身也需要分層與去重，否則「外置大腦」會退化成「外置垃圾場」——這條和 <span class="wl">概念 - 外置大腦設計</span> 引述 BASB「不要為整理而整理」的警告同向。</p>
+<hr>
+<h2>外部呼應：長上下文會退化（context rot）——為什麼是「蒸餾」不是「塞滿」</h2>
+<p><strong>（2026-06-27，Threads「建立知識庫」討論串多人獨立提到）</strong> 把所有東西塞進 AI 的上下文，品質不會更好、反而更差。@milkmidi：「（同一個 chat）討論了一年，AI 應該開始失智了，這是限制，所有 AI 工具都一樣」；@pro_ai.news：「80 萬 token 很大欸…每次都要讀 80 萬上下文，浪費 token…模型失智的問題也會很明顯」。社群實務觀察是：把重要的<strong>蒸餾成精簡 markdown 帶著走</strong>，而不是整包對話塞給下一個模型。</p>
+<p>與本頁的關係：這補上了分層外置的<strong>機制層「為什麼」</strong>。前一節「AI 不遺忘是優勢嗎」是從「人有沒有內化」切入；context rot 從另一端佐證——<strong>就算你想全塞給 AI，長上下文也有已知的退化與成本風險</strong>（注意力稀釋、中段遺失 lost-in-the-middle〔arXiv 2307.03172〕、token 成本上升）。所以「外置給 AI」不是把所有原始材料倒給它，而是要先壓縮、結構化、轉成精簡可調用的形式。這正是 Vault 用原子化 markdown ＋ <code>_keyword-index</code> 檢索、而非單一巨型脈絡檔的原因。</p>
+<p><strong>設計意涵</strong>：外置給 AI 的知識也要分層——餵的不是越多越好，是<strong>結構越完整、越精簡越好</strong>。這和上一節「外置物也要去重分層」同向，也是「AI 記得≠你學到」的技術鏡像：模型塞滿 ≠ 模型用得好。對 Vault 直接對應：蒸餾成自己的話（高轉化）＋原子化（可精準檢索），讓 AI 每次只取用相關的一小塊。</p>
+<hr>
+<h2>外部呼應：AI 成為內容介面——被吃掉的是「可濃縮層」（2026-07-01 增量）</h2>
+<p><strong>（Tim Ferriss "Has AI Already Killed How-To Nonfiction?" tim.blog 2026-06-12，原文核對）</strong> Tim 用 BookScan 帳單給了這個原則一個市場端的實證：他五本書的美國紙本銷量 2026 較 2022 累積約 <strong>−80%</strong>（2026 年減速率 −57% vs 2025），與 LLM 爆發同期。他列出若干可能因素（景氣、閱讀習慣變化等），但傾向認為主因是 <strong>LLM 正在成為所有內容的「介面」</strong>——大眾第一時間拿到的是 AI 過濾後的摘要，不再直接碰第一手的書／blog／課程。被吃掉的是「15 秒能給答案、可被濃縮」的那一層內容。</p>
+<p>與本頁的關係：這從<strong>市場端</strong>佐證了 2×2 的 🟢 公開事實層與〈回應「知識庫無用論」〉——AI 濃縮掉的，正是「未經轉化的公開結論層」（那層本就該外置、本就是 commodity）。而 Tim 說<strong>沒死的是「聲音、品味、個性、真實故事、具體數字、某個時刻的真實判斷」</strong>——這幾乎逐項對上本頁的 🔴 高轉化必須內化層與「個人庫＝轉化引擎的產物」。換句話說，一個外部作者從銷售數據反推出的存活條件，和本頁從認知科學推出的內化條件同構：<strong>可濃縮的公開層會被 AI 吃掉，不可濃縮的轉化／判斷層才是護城河。</strong></p>
+<p><strong>設計意涵</strong>：對個人庫——別把庫當公開資訊倉庫（那層必被 AI 取代），要當轉化引擎（呼應〈知識庫無用論〉回應）；對 FLUX Vault 線上課程——定位可直接打「AI 給你結論，給不了讓結論在你腦裡打進去的那個過程」，且這回有 Tim 的銷售數據當可引用的外部佐證（Tim 分析的是市場現象、並非為本課背書）。（精簡版讀者實驗的學習機制細節見 <span class="wl">概念 - 合意困難（學習設計）</span>〈外部佐證：Tim Ferriss 的精簡版實驗〉。）</p>
+<hr>
+<h2>我的觀點</h2>
+<p>分層外置原則的根本問題不是「要不要外置」，而是「<strong>這個知識在我用到它的當下，需要多快、需要做多少加工</strong>」。問清楚這個問題，外置與否的決策就很明確。</p>
+<p>遺忘本身不是失敗。反覆遺忘某個知識，是系統給你的訊號——這個東西應該外置，不要用腦容量記它。真正需要內化的東西（判斷框架、核心立場），在反覆使用中會自然被鞏固，不需要特別記。</p>
+<p>對 Vault 設計的意涵：外置的目的是<strong>釋放腦容量做更高階的事</strong>，不是把大腦的工作全部轉移出去。一個人用 Vault 的方式，反映了他對「什麼知識應該在哪裡」的理解——這本身是一個值得刻意設計的後設認知能力，也是 FLUX Vault 線上課程的核心論點之一。</p>
+<h3>回應兩個常見異議（2026-06-27 深化）</h3>
+<p><strong>「知識庫無用論」——錯在預設「庫＝囤積公開資訊」。</strong> 有人說新知更新太快、老知大模型本來就有，所以自建知識庫沒用（Threads @jasontsang0000）。這說法只對一層成立：<strong>未經轉化的公開事實層</strong>（本頁 2×2 的 🟢 安全外置象限）——那層 AI 確實有，我本來也不該囤、該讓 AI 幫我記。無用論的盲點是把整個庫等同於這一層。真正的個人庫不是公開資訊的倉庫，是<strong>轉化引擎的產物</strong>：把公開知識用自己的話蒸餾、接上我的脈絡、變成我的判斷與決策後，它就成了 AI 給不回來的東西。所以回應很乾脆——你講的是我也想外置的那層，我庫的價值在你沒算進去的另一層（判斷、脈絡、轉化）。資料會過期，轉化出來的判斷框架較可遷移、較不易過期。</p>
+<p><strong>「自製 vs 剪貼」——用「可取代性測試」判，不用比例。</strong> 真正讓庫活的不是剪貼的量，是經我轉化的部分（Threads @rouyunpan）；但「自製比例該多少」是假問題——比例任意、易流於形式，也跟本頁「重轉化不重數量」相牴觸。可操作判準是一個測試：<strong>把這頁餵給 AI，它生得出來嗎？</strong> 生得出來（公開知識的整理彙編）＝剪貼，低價值，AI 早就有；生不出來（含我的判斷、脈絡、走過的彎路）＝自製，高價值，這正是 AI 沒有的。這測試其實是上一條「轉化引擎」的操作版——轉化過的知識，定義上 AI 就無法復現；也對齊 Vault 既有機制：每篇〈我的觀點〉、價值閘門的「助益一句話」，都在強迫每筆入庫至少通過一次轉化。</p>
+<hr>
+<h2>待深化的問題</h2>
+<blockquote><p>來源：2026-06-27 Threads「建立知識庫」討論串的真實異議（course-outreach-daily-queue 留言情報）。記為待回應的問題，深化後回填觀點。</p></blockquote>
+<ul><li>✅（2026-06-27 深化，見〈我的觀點〉回應兩個常見異議）<strong>如何回應「知識庫無用論」？</strong> 有人主張「新知識更新太快、老知識大模型本來就有，所以自己建知識庫沒用」（Threads @jasontsang0000）。初步方向：個人知識庫存的本就不是<strong>公開知識</strong>（那部分 AI 確實有），而是 AI 沒有的——你的脈絡、你的判斷、你走過的彎路、你的隱私資料；價值在「把公開資訊轉成你自己的理解與決策」，不在囤積資訊本身。待深化：把這個反駁寫成清楚、可遷移的一段論述。</li><li>✅（2026-06-27 深化，見〈我的觀點〉回應兩個常見異議）<strong>「自己的產出」vs「剪貼別人的內容」——知識庫的價值差在哪？</strong> 有人點出關鍵：你的庫是自己的產出，還是搜集分類別人的內容？（Threads @rouyunpan）初步方向：剪貼別人的堆再多，AI 也只能還你一堆剪貼；真正讓庫「活」的是你親手用自己的話寫進去、轉化過的那部分（呼應本頁「高轉化必須內化」）。待深化：這條能不能給出可操作的「自製比例」判準。</li></ul>
+<hr>
+<h2>相關概念</h2>
+<ul><li><span class="wl">概念 - 外置大腦設計</span> — 外置大腦是分層外置原則的物理實現；分層外置解答了「什麼應該外置」這個設計問題</li><li><span class="wl">概念 - 記憶分層</span> — 分層外置原則的人腦底層邏輯；記憶分層描述了大腦如何自然分配不同性質的記憶</li><li><span class="wl">概念 - 可接續性設計</span> — 外置設計得當的知識，才能讓任何中斷後都能接續，不依賴腦內記憶</li></ul>
+<hr>
+<p><em>建立：2026-06-05（Tier 2 概念頁；從個人化脈絡 v2.1「分層外置原則」立場擴展為完整概念框架；採用認知科學記憶分層系統作為底層邏輯；含 AI 不遺忘議題應用場景）</em></p></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/second-brain-design.html">🏛️ 外置大腦設計</a><a class="relcard" href="/notes/moat-thinking.html">🏛️ 護城河思維</a><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fplace">Threads（待補）</span><span class="fplace">X（待補）</span><span class="fplace">GitHub（待補）</span><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>
