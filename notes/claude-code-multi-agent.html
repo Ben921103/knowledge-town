@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Claude Code 多代理工程團隊方法論 | 白澤的知識城鎮</title><meta name="description" content="AI工具 Claude Code 多代理工程團隊方法論 核心主張 ：把 Claude Code 從單一助手升級成分工團隊，不是角色扮演遊戲，而是上下文隔離與職責分離的工程決策。每個 subagent 的值不在於它「扮演」誰，而在於它的 context 是乾淨的、工具集是精確的、任務邊界是清楚的。 核 …"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9B%B2%3C/text%3E%3C/svg%3E"><style>
+<!DOCTYPE html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Claude Code 多代理工程團隊方法論 | 白澤的知識城鎮</title><meta name="description" content="AI工具 Claude Code 多代理工程團隊方法論 核心概念 1. Subagents（子代理）的本質：上下文隔離 Subagent 不是讓 Claude 換個語氣說話，而是給任務一個 獨立的工作記憶 。每個 subagent 有自己的 context window，不會被主代理或其他 suba …"><meta name="robots" content="index,follow,max-image-preview:large"><meta name="theme-color" content="#0e1726"><meta property="og:site_name" content="白澤的知識城鎮"><meta property="og:image" content="https://baize.systems/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="白澤的知識城鎮地圖"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="Claude Code 多代理工程團隊方法論 | 白澤的知識城鎮"><meta name="twitter:description" content="AI工具 Claude Code 多代理工程團隊方法論 核心概念 1. Subagents（子代理）的本質：上下文隔離 Subagent 不是讓 Claude 換個語氣說話，而是給任務一個 獨立的工作記憶 。每個 subagent 有自己的 context window，不會被主代理或其他 suba …"><meta name="twitter:image" content="https://baize.systems/og.jpg"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%E2%9B%B2%3C/text%3E%3C/svg%3E"><style>
 *{box-sizing:border-box;}
 body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",system-ui,sans-serif;background:#0e1726;color:#e7e0cf;}
 .wrap{max-width:820px;margin:0 auto;padding:96px 20px 70px;}
@@ -21,10 +21,10 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 .prose h1{font-size:24px;border-bottom:2px solid #e3d7bd;padding-bottom:.2em;} .prose h2{font-size:20px;} .prose h3{font-size:17px;}
 .prose table{border-collapse:collapse;width:100%;margin:1em 0;font-size:14.5px;}
 .prose th,.prose td{border:1px solid #e3d7bd;padding:7px 11px;text-align:left;vertical-align:top;} .prose th{background:#efe4c8;}
-.prose code{background:#efe7d4;padding:2px 6px;border-radius:5px;font-size:.9em;}
-.prose pre{background:#2a2317;color:#f3e7cc;padding:14px 16px;border-radius:9px;overflow:auto;} .prose pre code{background:none;color:inherit;}
+.prose code{background:#efe7d4;padding:2px 6px;border-radius:5px;font-size:.9em;overflow-wrap:anywhere;word-break:break-word;}
+.prose pre{background:#2a2317;color:#f3e7cc;padding:14px 16px;border-radius:9px;max-width:100%;overflow-x:auto;} .prose pre code{background:none;color:inherit;white-space:pre;overflow-wrap:normal;word-break:normal;}
 .prose blockquote{border-left:4px solid #c9a14a;margin:1em 0;padding:.2em 1em;color:#6a5b3e;background:#f4ecd8;border-radius:0 8px 8px 0;}
-.prose ul,.prose ol{padding-left:1.4em;} .prose li{margin:.3em 0;}
+.prose ul,.prose ol{padding-left:1.4em;} .prose p,.prose li,.prose td,.prose th{overflow-wrap:anywhere;word-break:break-word;} .prose li{margin:.3em 0;}
 .prose a{color:#96702a;} .wl{background:#e9dcbb;border-radius:4px;padding:1px 6px;font-size:.92em;color:#6a5526;}
 .prose img{max-width:100%;border-radius:8px;}
 .afoot{margin-top:34px;} .afoot h3{color:#ffd877;font-size:17px;margin:0 0 12px;}
@@ -57,8 +57,7 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 .footinner .fplace{color:#67788f;} .footinner .fline{color:#c9bb9c;} .footinner .fcopy{margin-left:auto;color:#6d7f96;}
 .ctaBtn2{display:inline-block;background:#c9a14a;color:#241a10;font-weight:800;padding:12px 24px;border-radius:11px;text-decoration:none;font-size:15.5px;box-shadow:0 6px 16px rgba(0,0,0,.4);transition:.15s;}
 .ctaBtn2:hover{filter:brightness(1.06);transform:translateY(-1px);}
-</style><link rel="canonical" href="https://baize.systems/notes/claude-code-multi-agent.html"><meta property="og:title" content="Claude Code 多代理工程團隊方法論"><meta property="og:description" content="AI工具 Claude Code 多代理工程團隊方法論 核心主張 ：把 Claude Code 從單一助手升級成分工團隊，不是角色扮演遊戲，而是上下文隔離與職責分離的工程決策。每個 subagent 的值不在於它「扮演」誰，而在於它的 context 是乾淨的、工具集是精確的、任務邊界是清楚的。 核 …"><meta property="og:type" content="article"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Claude Code 多代理工程團隊方法論", "author": {"@type": "Person", "name": "白澤"}, "publisher": {"@type": "Organization", "name": "baize.systems"}, "url": "https://baize.systems/notes/claude-code-multi-agent.html", "inLanguage": "zh-Hant", "description": "AI工具 Claude Code 多代理工程團隊方法論 核心主張 ：把 Claude Code 從單一助手升級成分工團隊，不是角色扮演遊戲，而是上下文隔離與職責分離的工程決策。每個 subagent 的值不在於它「扮演」誰，而在於它的 context 是乾淨的、工具集是精確的、任務邊界是清楚的。 核 …"}</script></head><body class="pg"><nav class="topbar"><div class="navinner"><a class="brand" href="/">白澤 · 知識城鎮</a><input type="checkbox" id="navtog" class="navtog"><label for="navtog" class="hamb">☰</label><div class="navlinks"><a class="navlink" href="/">⛲ 地圖</a><a class="navlink" href="/about.html">關於</a><a class="navlink" href="/work.html">作品</a><a class="navlink active" href="/notes/">筆記</a><a class="navcta" href="/build.html">🤝 1:1 代建服務</a></div></div></nav><main class="wrap"><article class="note"><div class="npill">📚 AI工具</div><h1 class="ph1">Claude Code 多代理工程團隊方法論</h1><div class="nmeta"><span class="badge">evergreen</span></div><div class="prose"><blockquote><p><strong>核心主張</strong>：把 Claude Code 從單一助手升級成分工團隊，不是角色扮演遊戲，而是上下文隔離與職責分離的工程決策。每個 subagent 的值不在於它「扮演」誰，而在於它的 context 是乾淨的、工具集是精確的、任務邊界是清楚的。</p></blockquote>
-<hr>
+</style><link rel="canonical" href="https://baize.systems/notes/claude-code-multi-agent.html"><meta property="og:title" content="Claude Code 多代理工程團隊方法論"><meta property="og:description" content="AI工具 Claude Code 多代理工程團隊方法論 核心概念 1. Subagents（子代理）的本質：上下文隔離 Subagent 不是讓 Claude 換個語氣說話，而是給任務一個 獨立的工作記憶 。每個 subagent 有自己的 context window，不會被主代理或其他 suba …"><meta property="og:type" content="article"><script type="application/ld+json">{"@context": "https://schema.org", "@type": "Article", "headline": "Claude Code 多代理工程團隊方法論", "author": {"@type": "Person", "name": "白澤"}, "publisher": {"@type": "Organization", "name": "baize.systems"}, "url": "https://baize.systems/notes/claude-code-multi-agent.html", "inLanguage": "zh-Hant", "description": "AI工具 Claude Code 多代理工程團隊方法論 核心概念 1. Subagents（子代理）的本質：上下文隔離 Subagent 不是讓 Claude 換個語氣說話，而是給任務一個 獨立的工作記憶 。每個 subagent 有自己的 context window，不會被主代理或其他 suba …"}</script></head><body class="pg"><nav class="topbar"><div class="navinner"><a class="brand" href="/">白澤 · 知識城鎮</a><input type="checkbox" id="navtog" class="navtog"><label for="navtog" class="hamb">☰</label><div class="navlinks"><a class="navlink" href="/">⛲ 地圖</a><a class="navlink" href="/about.html">關於</a><a class="navlink" href="/work.html">作品</a><a class="navlink active" href="/notes/">筆記</a><a class="navcta" href="/build.html">🤝 1:1 代建服務</a></div></div></nav><main class="wrap"><article class="note"><div class="npill">📚 AI工具</div><h1 class="ph1">Claude Code 多代理工程團隊方法論</h1><div class="nmeta"><span class="badge">evergreen</span></div><div class="prose"><hr>
 <h2>核心概念</h2>
 <h3>1. Subagents（子代理）的本質：上下文隔離</h3>
 <p>Subagent 不是讓 Claude 換個語氣說話，而是給任務一個<strong>獨立的工作記憶</strong>。每個 subagent 有自己的 context window，不會被主代理或其他 subagent 的對話污染。這讓平行任務、大規模批次、或需要「只知道這件事就好」的專門任務得以可靠執行。</p>
@@ -103,9 +102,6 @@ File hook        特定檔案被修改時        changelog 更新、index 同步
 <hr>
 <h2>對 FLUX Vault 的應用</h2>
 <p>FLUX Vault 的批次整理任務（如多篇 raw 入庫、大量 frontmatter 補齊）是 subagents 最有機會帶來效益的場景：</p>
-<ul><li><strong>Planner agent</strong>：掃描 <code>_processing-log.md</code> 的待升 wiki 清單，生成任務分配</li><li><strong>Wiki builder agent</strong>：只有讀 raw 和寫 wiki 的工具，專注骨架建立</li><li><strong>Index updater agent</strong>：只碰 <code>index.md</code>，確保每次入庫後索引正確更新</li><li><strong>Log agent</strong>：只碰 <code>_processing-log.md</code>，維護狀態紀錄</li></ul>
-<p>Hook 應用：</p>
-<ul><li>每篇 wiki 建立後，自動觸發 frontmatter 格式驗證（確認 v2.1 欄位完整）</li><li>批次任務結束時，自動在 <code>_processing-log.md</code> 補上 processing note</li></ul>
 <hr>
 <h2>我的觀點</h2>
 <p><em>更新：2026-05-22（多代理實測後修訂）</em></p>
@@ -115,45 +111,38 @@ File hook        特定檔案被修改時        changelog 更新、index 同步
 <ol><li><strong>協調成本是實質的</strong>：orchestrator 需要為每個 subagent 撰寫詳細且完整的 prompt（格式規格、raw 內容摘要、邊界限制），這個準備工作大約等於單 agent 處理一篇的時間。2 篇並行的時間節省幾乎被 orchestrator 成本抵消；估計需要 <strong>5-8 篇以上的獨立 wiki 任務</strong>才開始有明確時間優勢。</li></ol>
 <ol><li><strong>Context 隔離對品質有正面效果</strong>：兩個 agent 的輸出完全沒有被互相污染，格式合規率 100%，各自的「我的觀點」都有焦點且不重複。這反映了 wiki 中「每個 agent 只知道它需要知道的事」這個核心設計原則確實有效。</li></ol>
 <ol><li><strong>第一個值得試的 Vault 候選</strong>：批次入庫 5 篇以上獨立主題的 raw 文章（例如一次處理多篇 Facebook 儲存文章，各自建 wiki skeleton）。條件是：篇數 ≥ 5、主題互相獨立、不需要 cross-reference。</li></ol>
-<p><strong>Hooks 對我目前的工作流是已被替代的解法</strong> Hooks 解決的問題是「讓流程規則不依賴 AI 記住」，但我已經用 CLAUDE.md 文件 + Cowork ↔ Claude Code 相互檢視達到同樣效果。規則寫在文件裡，可讀、可被 AI 直接引用、不需要額外設定腳本。在這個前提下，hooks 是沒有空缺的解法——它解決的問題我目前沒有。未來若 Vault 規模變大、協作頻率提高，再評估是否值得投入 hooks 設定成本。</p>
+<p><strong>Hooks 對我目前的工作流是已被替代的解法</strong> Hooks 解決的問題是「讓流程規則不依賴 AI 記住」，但我已經用 規則檔 文件 + Cowork ↔ Claude Code 相互檢視達到同樣效果。規則寫在文件裡，可讀、可被 AI 直接引用、不需要額外設定腳本。在這個前提下，hooks 是沒有空缺的解法——它解決的問題我目前沒有。未來若 Vault 規模變大、協作頻率提高，再評估是否值得投入 hooks 設定成本。</p>
 <p><strong>Vault 整理任務的規模感：都是 P7（實測後確認）</strong> 即使同時有 7 篇 queued-for-wiki，對我來說仍屬小事。實測後更確定：個人 PKM 的任務規模幾乎不會觸發 P9/P10。除非 Vault 變成團隊共用系統，或每週需要一次性處理幾十篇 raw，才需要重新評估分工設計。</p>
 <p><strong>AI 主動任務分派：從「被設計的角色」到「自主協商的協作者」（2026-05-28 補充）</strong></p>
 <p>Claude Taiwan 社群（羅仁宏，2026-05-28）的案例展示了多代理方法論一個尚未討論的維度：當 Claude Code 與 Codex 透過 Markdown 互相留言時，Claude 曾主動提議把工作交給 Codex，Codex 也反向將任務分回 Claude。這不是 orchestrator 預先設計好的角色分工，而是兩個 agent 在溝通過程中<strong>自發協商出來的任務邊界</strong>。</p>
 <p>這個觀察與現有的「任務類型判斷矩陣」形成對話：現有框架假設「由人（或 orchestrator）決定哪個 agent 做什麼」，但這個案例暗示更進一步的可能：agent 本身有足夠的情境理解能力來識別「這部分不是我最適合的」並主動交接。若這個模式可複製，orchestrator 的角色可能不再是預先分工，而是設定邊界規則，讓 agent 自行在規則內協商。</p>
 <p>目前 FLUX Vault 的工作流仍在「人工設計角色」層次，這個維度是未來值得觀察的演進方向，尚未觸發可操作的改變。</p>
-<p>（來源：Claude Taiwan / 羅仁宏；permalink：<code>https://www.facebook.com/groups/1224997379198346/posts/1306329744398442/</code>）</p>
 <p><strong>待深化的問題</strong>（更新）：</p>
-<ul><li>~~實際操作過 subagents 後，「任務類型」這個判斷依據是否還成立？~~ ✅ 已實測確認：成立，但需精確化為「寫入獨立文件 vs 共用資源」的區分。</li><li>~~哪些 Vault 任務是第一個值得試的候選？~~ ✅ 已確認：5 篇以上獨立主題的批次 wiki 建立。</li><li>如果 Vault 規模成長到每週都有批次入庫，CLAUDE.md 文件規範的方式是否還夠用，還是到了需要 hooks 自動執行驗證的臨界點？（尚未觸發，持續觀察）</li></ul>
+<ul><li>~~實際操作過 subagents 後，「任務類型」這個判斷依據是否還成立？~~ ✅ 已實測確認：成立，但需精確化為「寫入獨立文件 vs 共用資源」的區分。</li><li>~~哪些 Vault 任務是第一個值得試的候選？~~ ✅ 已確認：5 篇以上獨立主題的批次 wiki 建立。</li><li>如果 Vault 規模成長到每週都有批次入庫，規則檔 文件規範的方式是否還夠用，還是到了需要 hooks 自動執行驗證的臨界點？（尚未觸發，持續觀察）</li></ul>
 <hr>
 <h2>參照：第三方開源 Agent 框架</h2>
 <p><strong>OpenClaw / Harness Engineering</strong>（出自資訊科技課程）是另一種實作 Agentic AI 的開源架構方向，與 Claude Code 的設計哲學高度平行：</p>
-<table><thead><tr><th>設定檔</th><th>對應功能</th><th>Claude Code 對應</th></tr></thead><tbody><tr><td><code>IDENTITY.md</code></td><td>定義 Agent 的角色身份與核心使命</td><td><code>CLAUDE.md</code> 的角色定義段</td></tr><tr><td><code>SOUL.md</code></td><td>設定 Agent 的價值觀與決策邊界</td><td><code>CLAUDE.md</code> 的禁止事項 + 哲學段</td></tr><tr><td><code>SKILL.md</code></td><td>描述可呼叫的技能模組</td><td>Subagent 的 <code>description</code> + <code>tools</code> 設定</td></tr><tr><td><code>MEMORY.md</code> + 每日日誌</td><td>長短期記憶系統</td><td><code>CLAUDE.md</code> + <code>_processing-log.md</code></td></tr></tbody></table>
 <p><strong>ReAct（Reason + Act）</strong>：OpenClaw 採用的思考-行動循環，讓 Agent 在每步行動前先推理再執行，與 Claude Code 的 chain-of-thought 工作模式相同。這個設計讓 Agent 能自主規劃步驟，而非只是執行指令。</p>
-<p><strong>通則</strong>：Markdown 配置人格 + 技能 + 記憶的架構不是 Claude Code 獨有，而是 Agentic AI 設計的一種通用模式。<code>CLAUDE.md</code> 等檔案是這個模式的 Claude 具體實作。</p>
+<p><strong>通則</strong>：Markdown 配置人格 + 技能 + 記憶的架構不是 Claude Code 獨有，而是 Agentic AI 設計的一種通用模式。<code>規則檔</code> 等檔案是這個模式的 Claude 具體實作。</p>
 <p><strong>Agency Agents（agencyagents.dev）</strong></p>
 <p><em>補入日期：2026-05-31｜來源：Codex 社群初篩</em></p>
 <p>140+ role-based agent personas，可供 Claude Code / Cursor / Windsurf 載入使用。定位是 persona library（角色人格庫），而非 orchestration 框架本身。</p>
 <p><strong>觀察</strong>：persona library 能讓 agent 更快進入「專家語氣」的思考模式，但不解決上下文隔離、工具 allowlist 設定等工程問題。兩者互補，不互相替代——先確定任務邊界和工具設定，再選擇合適的 persona，而非反過來。</p>
 <hr>
 <h2>Agent UI 空白：GUI 視覺 vs 終端循環</h2>
-<p><em>補入：2026-06-05（來源：Threads @zaochunan Hermes 三 agent / GUI-agent 空白；Threads 社群引入）</em></p>
 <p>多代理協作中存在一個設計空白：</p>
 <ul><li><strong>終端 agent</strong>（Claude Code / subagents）：有完整的「讀取 → 編輯 → 驗證 → 修正」閉環，但介面不直覺、狀態不易追蹤</li><li><strong>GUI 客戶端</strong>（Conductor、各種 IDE 插件）：有視覺介面和交互，但多數缺乏真正的自動化循環能力</li></ul>
 <p>目前主流做法是「三窗口模擬分工」：一個 orchestrator terminal 追蹤狀態，多個 subagent terminal 各自執行，GUI 工具負責 review 與視覺判斷。這不是最優方案，但在統一方案出現前是最務實的折衷。</p>
 <p><strong>對本篇的意義</strong>：多代理方法論的下一個缺口不在「如何分派任務」（已有 Task tool / subagents），而在「如何直覺地追蹤多個 agent 狀態」——這是 Conductor 等工具試圖解決的問題。</p>
 <hr>
 <h2>7-role 軟體工廠：人類審核點與上下文漂移處置</h2>
-<p><em>補入：2026-06-15（來源：blocktempo 譯 @sairahul1「7 個 Agent 把 Vibe Coding 升級成軟體工廠」，2026-05-31；LINE 預篩選批次）</em></p>
-<p>@sairahul1 的「軟體工廠」把單一 Claude Code 對話拆成 7 個只讀/限寫的專責 agent：<strong>研究員（Researcher，只讀，動工前先掃 codebase）→ 故事撰寫者（Story Writer，產使用者故事＋驗收標準）→ 規格撰寫者（Spec Writer，轉技術簡報）→ 後端建造者（限後端資料夾）→ 前端建造者（限前端資料夾，先讀後端 API 摘要、不發明端點）→ 測試驗證者（只寫驗收測試）→ 實作驗證員（只讀，拿實作對照故事/簡報回報落差）</strong>。和本篇既有的 12-agent devteam 是同一個「上下文隔離＋職責分離」骨架，但有三點是既有內容沒有、值得標的增量：</p>
+<p><em>補入：2026-06-15（來源：blocktempo 譯 外部創作者「7 個 Agent 把 Vibe Coding 升級成軟體工廠」，2026-05-31；LINE 預篩選批次）</em></p>
+<p>外部創作者 的「軟體工廠」把單一 Claude Code 對話拆成 7 個只讀/限寫的專責 agent：<strong>研究員（Researcher，只讀，動工前先掃 codebase）→ 故事撰寫者（Story Writer，產使用者故事＋驗收標準）→ 規格撰寫者（Spec Writer，轉技術簡報）→ 後端建造者（限後端資料夾）→ 前端建造者（限前端資料夾，先讀後端 API 摘要、不發明端點）→ 測試驗證者（只寫驗收測試）→ 實作驗證員（只讀，拿實作對照故事/簡報回報落差）</strong>。和本篇既有的 12-agent devteam 是同一個「上下文隔離＋職責分離」骨架，但有三點是既有內容沒有、值得標的增量：</p>
 <p><strong>① 三個明確的人類審核點，織進流程而非附加</strong>：核准故事 → 核准簡報 → 核准 PR。其餘全自動。設計重點是「在錯誤最便宜的時候攔下」——簡報核准點抓「把 ID 存記憶體」這種架構錯誤，遠勝十個檔案改完才發現。這把本庫一直在做的「human-in-the-loop 閘」具體化成流程裡的固定停損點，而非籠統的「Critic review」。</p>
 <p><strong>② 上下文漂移（context drift）的處置規則</strong>：大多數對話不是戲劇性失敗，而是「一個錯假設進 context，模型在上面繼續疊」。處置二分法——<strong>小錯字 → inline 修正；架構假設錯 → 整段對話丟掉重來，把對的假設烙進第一個 prompt</strong>。理由：打補丁會留下 <code>user.subscriptionId</code> 與 <code>company.subscriptionId</code> 同時飄著的爛攤子，「一個有正確心智模型的乾淨對話，永遠勝過一個打補丁的對話」。這條最實用、可直接用在 DoodleFocus／補習班 coding——也呼應本庫「系統設計 &gt; 點對點修補」的傾向。</p>
-<p><strong>③ 驗證員「只看磁碟現實、不看自評」</strong>：實作驗證員從不修任何東西、只說真話，按 Critical/Important/Minor 分級附檔案路徑行號，「自評的成績單沒有價值」。這點與本批同時入庫的 <span class="wl">AI工具 - 工具雷達</span> execution-proofs（zero-LLM 驗 agent 完工宣稱綁實體檔）同源，也與 Vault 用 Codex 複查「宣稱 vs 實際」的機制同構。</p>
-<p><strong>對我的定位</strong>：這套是 <em>coding</em> 工作流（DoodleFocus／補習班），不是 Vault 任務——本篇「我的觀點」已實測確認 Vault 整理皆 P7、不需要這種重編制。但 ②（上下文漂移處置）和 ③（驗證只看現實）是跨情境的判斷原則，值得在實際寫 code 時叫用。另注：該文獨立佐證「CLAUDE.md 保持 100–300 行」，已回填 <span class="wl">AI 專案規範管理</span>。</p>
+<p><strong>③ 驗證員「只看磁碟現實、不看自評」</strong>：實作驗證員從不修任何東西、只說真話，按 Critical/Important/Minor 分級附檔案路徑行號，「自評的成績單沒有價值」。這點與本批同時入庫的 未公開筆記 execution-proofs（zero-LLM 驗 agent 完工宣稱綁實體檔）同源，也與 Vault 用 Codex 複查「宣稱 vs 實際」的機制同構。</p>
+<p><strong>對我的定位</strong>：這套是 <em>coding</em> 工作流（DoodleFocus／補習班），不是 Vault 任務——本篇「我的觀點」已實測確認 Vault 整理皆 P7、不需要這種重編制。但 ②（上下文漂移處置）和 ③（驗證只看現實）是跨情境的判斷原則，值得在實際寫 code 時叫用。另注：該文獨立佐證「規則檔 保持 100–300 行」，已回填 未公開筆記。</p>
 <hr>
 <h2>可連結的主題</h2>
-<ul><li><span class="wl">AI工具 - Claude Code 長任務管理</span> — session 管理的基礎觀念，與 subagents 互補</li><li><span class="wl">產品與創業 - 前瞻科技與未來商業應用：AI Agents</span> — AI Agent 宏觀框架與商業應用</li><li><span class="wl">AI工具 - Claude Code 非工程師入門與 MCP 自動化</span> — 非工程師視角的 Claude Code 實作</li><li><span class="wl">Vault_Spec</span> — FLUX Vault 的 AI 協作規格，hooks 的潛在對應點</li></ul>
-<hr>
-<h2>金句備忘</h2>
-<blockquote><p>「多代理不是角色扮演，而是上下文隔離與職責分離。」— 改寫自 subagents 文件</p></blockquote>
-<blockquote><p>「每個 agent 只知道它需要知道的事，這才是可靠的工程紀律。」</p></blockquote>
-<p><em>2026-06-10 evergreen 通膨重審：保留 evergreen（頁內有使用/實測證據）。版本號/stars 等現況事實屬快照層，由月度 staleness 排程複查，不影響觀點層位階。</em></p></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard" href="/notes/agent-harness-engineering.html">📚 Agent Harness Engineering</a><a class="relcard" href="/notes/agent-session-handoff-governance.html">📚 Agent Session Handoff Governance</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fplace">Threads（待補）</span><span class="fplace">X（待補）</span><span class="fplace">GitHub（待補）</span><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>
+<ul><li>未公開筆記 — session 管理的基礎觀念，與 subagents 互補</li><li>未公開筆記 — AI Agent 宏觀框架與商業應用</li><li>未公開筆記 — 非工程師視角的 Claude Code 實作</li><li>未公開筆記 — FLUX Vault 的 AI 協作規格，hooks 的潛在對應點</li></ul>
+<hr></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard" href="/notes/agent-harness-engineering.html">📚 Agent Harness Engineering</a><a class="relcard" href="/notes/agent-session-handoff-governance.html">📚 Agent Session Handoff Governance</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>
