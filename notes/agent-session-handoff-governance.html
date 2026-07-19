@@ -118,12 +118,12 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <ul><li><strong>機制</strong>：Claude Code 透過 Telegram 運行，context 接近上限前 AI 被要求把關鍵決策、開放任務、進行中的偏好寫入 <code>past_life_memory.md</code>，然後重啟 session。新 session 讀入這份記憶，從中斷點繼續。這和 FLUX Vault 的 handoff 文件 + 銜接提示詞邏輯一致——差別在 Vault 是人工觸發，return-by-death 是 AI 在 Telegram 對話中自行觸發（用戶說「go reincarnate」）。</li><li><strong>防失憶三要素在此的對應</strong>：<code>past_life_memory.md</code> = handoff 文件；「go reincarnate」指令 = 手動觸發點；systemd service + auto-restart = 持久化機制（歸檔層）。</li></ul>
 <p><strong>安全邊界提示</strong>：此架構把 Claude Code 接進 Telegram，本質上是「可以自然語言操控的遠端 shell」，打破了 Claude Code 設計預設的 human-in-the-loop 假設。作為防失憶設計的參考有價值；若要生產部署，需加入操作白名單、強制審計日誌、無人值守期間的暫停機制。（來源：GitHub <code>https://github.com/cutevisor/return-by-death</code>；Claude Taiwan 社群 / Weng Visor）</p>
 <p><strong>Task Continuity 框架讓 Vault 的三層記憶設計有了更精確的語言（2026-05-28 補充）</strong></p>
-<p>warmwater.dev 的三層拆分（Task Continuity / Personal Memory / Learning）讓我可以更清楚地說出 Vault 在做什麼：<code>交接文件</code> 解決的是任務連續性，不是個人化；<code>規則檔 + 個人化脈絡</code> 解決的是個人記憶；<code>未公開筆記.md 踩坑紀錄 + Ratchet</code> 解決的是學習。三個層次之前都存在，但沒有這套語彙就很難向外說明，也很難在設計新機制時確認「這個解法在解哪一層的問題」。</p>
+<p>warmwater.dev 的三層拆分（Task Continuity / Personal Memory / Learning）讓我可以更清楚地說出 Vault 在做什麼：<code>交接文件</code> 解決的是任務連續性，不是個人化；<code>規則檔 + 個人化脈絡</code> 解決的是個人記憶；<code>延伸方向.md 踩坑紀錄 + Ratchet</code> 解決的是學習。三個層次之前都存在，但沒有這套語彙就很難向外說明，也很難在設計新機制時確認「這個解法在解哪一層的問題」。</p>
 <p><strong>待深化的問題</strong>：</p>
 <ul><li>FLUX Vault 的「防污染」缺口應該如何填？→ ✅ 已完成（2026-06-01）：規則檔 v2.4.2 新增「Context 邊界規則（防污染）」，明確五類不應進入 AI context 的資料類型 + Subagent 邊界原則</li><li>[x] <code>AGENT Handoff Kit</code> 的具體實作（repo/文件）→ ✅ 已結案（2026-06-10）：npm 版 <code>外部創作者/agent-handoff-kit</code> 已於頁內「Agent Handoff Kit — npm 驗證（2026-06-04 補充）」節驗證；skill 生態側 softaworks/agent-toolkit session-handoff 本次 repo 直讀確認屬實（1.6k★／123 forks／MIT），其「觸發條件清單」（context 將滿／milestone 完成／用戶說 save state）可對照校準 Vault 交接模板。</li></ul>
 <hr>
 <h2>可連結的主題</h2>
-<ul><li>未公開筆記 — 三層記憶架構是 handoff governance 的底層理論基礎</li><li>未公開筆記 — 規則檔 四層結構是 Vault 的 governance 文件體系</li><li>未公開筆記 — Context Hygiene 是防污染的工具層實踐</li><li>未公開筆記 — 知識庫「活起來」的前提是有效的記憶治理</li></ul>
+<ul><li>延伸方向 — 三層記憶架構是 handoff governance 的底層理論基礎</li><li>延伸方向 — 規則檔 四層結構是 Vault 的 governance 文件體系</li><li>延伸方向 — Context Hygiene 是防污染的工具層實踐</li><li>延伸方向 — 知識庫「活起來」的前提是有效的記憶治理</li></ul>
 <hr>
 <h2>Agent Handoff Kit — npm 驗證（2026-06-04 補充）</h2>
 <p>原「先前未驗證」條目已由 Codex 查核確認。</p>
@@ -145,15 +145,15 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <ul><li><code>.trellis/</code> = 防失憶層：需求、任務、進度的持久化</li><li>「先規劃 → 再實現 → 再驗證 → 把經驗寫回專案」工作流 = 防錯誤接手的設計哲學</li></ul>
 <p><strong>和 Agent Handoff Kit 的差異</strong>：</p>
 <table><thead><tr><th>工具</th><th>核心設計</th><th>場景</th></tr></thead><tbody><tr><td>Agent Handoff Kit</td><td>npm package，跨 session 文件體系（SESSION_HANDOFF.md 等）</td><td>任意專案，輕量導入</td></tr><tr><td>Trellis</td><td><code>.trellis/</code> 目錄，含需求 + 規範 + 任務 + 進度全生命週期</td><td>深度整合開發工作流</td></tr></tbody></table>
-<p><strong>對 DoodleFocus / 補習班系統的應用評估</strong>：Trellis 的「把開發決策寫進專案目錄」設計和 FLUX Vault 的 <code>規則檔</code> 哲學一致，適合在新一輪 DoodleFocus 開發啟動時試用。保守邊界：先在 feature branch 試，確認格式穩定後再整合進主開發流程。</p>
+<p><strong>對 行動 App / 教學管理系統系統的應用評估</strong>：Trellis 的「把開發決策寫進專案目錄」設計和 FLUX Vault 的 <code>規則檔</code> 哲學一致，適合在新一輪 行動 App 開發啟動時試用。保守邊界：先在 feature branch 試，確認格式穩定後再整合進主開發流程。</p>
 <hr>
 <h2>跨工具交接（Claude Code → Codex）：三層對齊案例（2026-07-11 補充）</h2>
 <p><em>來源：Threads 外部創作者（post/DapZV7BGX6C）；danyuchn 部落格〈從 Claude Code 搬家到 Codex〉＋ repo <code>danyuchn/claude-codex-harness-sync</code>（MIT／32★／last push 2026-05-03／Python，查核日 2026-07-11）</em></p>
 <p>把工作從 Claude Code 交到 Codex（或反向）是本篇「防錯誤接手」在<strong>跨工具</strong>場景的放大版——不同 harness 的規則檔、技能、權限邊界都不同，只交一份對話摘要必然掉東西。社群實作收斂出三層對齊：</p>
 <table><thead><tr><th>層</th><th>交什麼</th><th>為什麼不能省</th></tr></thead><tbody><tr><td><strong>任務層</strong></td><td>先用 spec／完成標準固定「要做什麼」</td><td>沒有 spec，接手方只能從轉述 prompt 反推意圖</td></tr><tr><td><strong>Harness 層</strong></td><td>同步 AGENTS/CLAUDE、skills、MCP、hooks、權限邊界——不是只交摘要</td><td>規則與能力不對齊，新 agent 會用錯工具或越界</td></tr><tr><td><strong>狀態層</strong></td><td>progress／task 檔＋git 記錄完成處、未完成處與可回退點</td><td>沒有 checkpoint，中斷後無法安全接續（對應本頁 <code>.tmp</code> 四段）</td></tr></tbody></table>
-<p><strong>三來源共振</strong>：這三層分別由三個實作面佐證——① 規格驅動開發（SDD，見 未公開筆記）給任務層；② harness sync 給 harness 層；③ progress.md＋git 給狀態層。三者拼起來才是完整交接，缺一層就退回「傳摘要」的失憶風險。</p>
+<p><strong>三來源共振</strong>：這三層分別由三個實作面佐證——① 規格驅動開發（SDD，見 延伸方向）給任務層；② harness sync 給 harness 層；③ progress.md＋git 給狀態層。三者拼起來才是完整交接，缺一層就退回「傳摘要」的失憶風險。</p>
 <p><strong>具體工具案例（harness 層）</strong>：<code>danyuchn/claude-codex-harness-sync</code>（MIT／32★／Python，查核日 2026-07-11）是一個 Codex skill，把「Claude Code harness → Codex harness」的遷移做成可稽核流程——<strong>不整包複製 <code>.claude</code></strong>，而是先 audit、safe 項自動翻譯、風險項（hooks、MCP、memory、大型指令檔）標記為 model-assisted 手動處理；分 <code>setup</code>（首次遷移計畫）與 <code>maintain</code>（drift 報告）兩模式。<strong>誠實邊界</strong>：它本身走的是 audit＋「maintain 模式 drift 比對」，<strong>不是</strong> progress.md＋git 的狀態傳遞——狀態層要另靠 progress 檔＋git，別把這個 repo 當一站式交接。小型單作者 repo，只當具體工具案例、不升獨立頁。</p>
 <p><strong>判斷補充——中介 agent 越多，意圖越容易被重新詮釋</strong>：每多一層轉手（人轉述 → agent A → agent B），原始意圖就多一次被重新詮釋的機會。所以跨工具交接要傳的是 <strong>spec 與 evidence</strong>（可驗證的完成標準、實際產物、git checkpoint），而非只傳「上一個 agent 說了什麼」的轉述 prompt。這是本頁「交接的是地圖，不是記憶」在多 agent 接力下的延伸：地圖要標的是可被獨立核實的座標，不是口述路線。</p>
-<p><strong>對 FLUX Vault 的對應</strong>：Vault 的 Cowork×Codex 對等協作已內建這三層——任務層＝統一協作任務包（spec＋交付路徑＋機械驗收）、harness 層＝各自的 協作規則檔／規則檔／skills、狀態層＝<code>未公開筆記.md</code>＋交接檔＋每日 git snapshot。本案例佐證這套設計方向與外部社群獨立收斂一致。</p>
+<p><strong>對 FLUX Vault 的對應</strong>：Vault 的 Cowork×Codex 對等協作已內建這三層——任務層＝統一協作任務包（spec＋交付路徑＋機械驗收）、harness 層＝各自的 協作規則檔／規則檔／skills、狀態層＝<code>延伸方向.md</code>＋交接檔＋每日 git snapshot。本案例佐證這套設計方向與外部社群獨立收斂一致。</p>
 <hr>
 <p><em>2026-06-10 通膨重審誤降，同日經 Codex 複查恢復 evergreen：頁內有明確實踐證據（三防檢視表已落地、防污染缺口由本頁分析驅動 規則檔 v2.4.2 結案）。教訓＝證據掃描不能只靠 regex pattern，borderline 一律人工讀頁。</em></p></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard" href="/notes/agent-harness-engineering.html">📚 Agent Harness Engineering</a><a class="relcard" href="/notes/claude-code-multi-agent.html">📚 Claude Code 多代理工程團隊方法論</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>

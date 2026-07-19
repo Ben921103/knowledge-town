@@ -68,26 +68,26 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <h3>Step 1：判斷類型（1 分鐘）</h3>
 <ul><li>這個主題有沒有現成 wiki？<ul><li>有 → <strong>A 類</strong>：補充現有 wiki 的 source_notes + 觀點段落</li><li>沒有 → <strong>B 類</strong>：新建 wiki skeleton</li></ul></li></ul>
 <h3>Step 2：建/找 wiki 頁（2 分鐘）</h3>
-<ul><li>A 類：打開對應 wiki，找「我的觀點」段落</li><li>B 類：<code>Cmd+N</code> 新建，套用 <code>未公開筆記.md</code></li></ul>
+<ul><li>A 類：打開對應 wiki，找「我的觀點」段落</li><li>B 類：<code>Cmd+N</code> 新建，套用 <code>延伸方向.md</code></li></ul>
 <h3>Step 3：補 frontmatter（2 分鐘）</h3>
 <p>必填欄位：</p>
 <pre><code>title: "分類 - 主題名稱"
 date: 今天日期
 type: wiki
 tags: [分類標籤]
-source_notes: ["未公開筆記"]
+source_notes: ["延伸方向"]
 related:
-  - "未公開筆記"
-  - "未公開筆記"
+  - "延伸方向"
+  - "延伸方向"
 status: seed   ← 先給 seed，有觀點再升 developed</code></pre>
 <h3>Step 4：補觀點（核心步驟）</h3>
 <p>在「我的觀點」段落寫：</p>
 <ul><li>這個概念對你有什麼用？</li><li>你同意/不同意什麼？</li><li>和你的其他工具/專案的關係？</li></ul>
 <h3>Step 5：Archive raw + 驗證（1 分鐘）</h3>
-<ol><li>回到 raw 筆記，改 <code>status: inbox</code> → <code>status: archived</code></li><li>加 <code>wiki_path: "未公開筆記"</code></li><li>用 <code>ls</code> 或 Obsidian 搜尋確認 wiki 頁面真的存在</li></ol>
+<ol><li>回到 raw 筆記，改 <code>status: inbox</code> → <code>status: archived</code></li><li>加 <code>wiki_path: "延伸方向"</code></li><li>用 <code>ls</code> 或 Obsidian 搜尋確認 wiki 頁面真的存在</li></ol>
 <hr>
 <h2>常見卡點 + 解法</h2>
-<table><thead><tr><th>卡點</th><th>解法</th></tr></thead><tbody><tr><td>不知道這篇 raw 歸哪個 wiki</td><td>搜尋 內部筆記 + 關鍵字；找不到就新建</td></tr><tr><td>觀點寫不出來</td><td>先交給 Cowork：「幫我補充這篇 raw 的我的觀點」</td></tr><tr><td>不知道要連到哪個概念頁</td><td>打開 未公開筆記 看概念層清單</td></tr><tr><td>related 填不出 2 個</td><td>找一個同領域 wiki + 一個概念頁，湊到 2 個就夠</td></tr><tr><td>要升 developed 但不確定夠不夠</td><td>確認：① 我的觀點有明確立場 ② related ≥ 2 個概念節點</td></tr></tbody></table>
+<table><thead><tr><th>卡點</th><th>解法</th></tr></thead><tbody><tr><td>不知道這篇 raw 歸哪個 wiki</td><td>搜尋 內部筆記 + 關鍵字；找不到就新建</td></tr><tr><td>觀點寫不出來</td><td>先交給 Cowork：「幫我補充這篇 raw 的我的觀點」</td></tr><tr><td>不知道要連到哪個概念頁</td><td>打開 延伸方向 看概念層清單</td></tr><tr><td>related 填不出 2 個</td><td>找一個同領域 wiki + 一個概念頁，湊到 2 個就夠</td></tr><tr><td>要升 developed 但不確定夠不夠</td><td>確認：① 我的觀點有明確立場 ② related ≥ 2 個概念節點</td></tr></tbody></table>
 <hr>
 <h2>Graph 輔助診斷（升完 wiki 後做一次）</h2>
 <p>在 Obsidian Graph 搜尋框輸入以下 filter 確認：</p>

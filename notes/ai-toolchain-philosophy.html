@@ -85,7 +85,7 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <p><strong>工具分工有明確的角色邊界</strong>。Cowork 負責需要判斷與對話的工作，Claude Code 負責可明確描述的執行性工作，兩者不互相越界。這個分工不是能力的問題——技術上 Cowork 也能跑 bash，Claude Code 也能做對話——而是設計選擇，讓每個工具在最適合的情境下出現。</p>
 <p><strong>Skill 生態系有兩個層次</strong>。Cowork 的 Skill 是對話情境下的能力封裝（session 管理、入庫流程），Claude Code 的 Skill 是執行情境下的行為強化（驗收規則、多代理協作）。兩層各有職責，不混用。</p>
 <p><strong>生態系會自我診斷和修復</strong>。這是 FLUX Vault 最能說明生態系思維的地方：2026-06-03 診斷發現 58% 的 wiki 零概念連結，同日用 Python script 一次修復 38 篇。這個「診斷 → 識別問題 → 批次修復」的能力，是因為知識庫被設計成「可被機器處理的格式」（本地 markdown + 結構化 frontmatter），而不是人類閱讀用的靜態文件。生態系的健康可以被量化、可以被自動化維護，這是 Notion 等雲端工具做不到的根本原因。</p>
-<p><strong>護城河在生態系層，不在工具層</strong>。Claude 模型本身是商品，任何人都能用。真正難以複製的是「在你的 Harness 上跑得比預設配置好」的積累——經過校準的 規則檔、未公開筆記 的踩坑記錄、跨 session 可傳遞的脈絡——這些是你的生態系，不是工具。</p>
+<p><strong>護城河在生態系層，不在工具層</strong>。Claude 模型本身是商品，任何人都能用。真正難以複製的是「在你的 Harness 上跑得比預設配置好」的積累——經過校準的 規則檔、延伸方向 的踩坑記錄、跨 session 可傳遞的脈絡——這些是你的生態系，不是工具。</p>
 <hr>
 <h2>三層的演進路徑</h2>
 <p>這三層不是同時建立的，也不應該同時建立。</p>

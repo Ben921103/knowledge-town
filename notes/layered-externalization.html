@@ -69,7 +69,7 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <hr>
 <h2>Vault 的分層外置實作</h2>
 <p>FLUX Vault 的架構設計是對上述框架的直接實現：</p>
-<table><thead><tr><th>大腦記憶系統</th><th>Vault 對應層</th><th>存放內容</th></tr></thead><tbody><tr><td>工作記憶</td><td>context window + 內部筆記 交接文件</td><td>當前任務脈絡、短期待辦</td></tr><tr><td>程序記憶</td><td><code>規則檔</code> + <code>未公開筆記.md</code></td><td>AI 行為規則、工作模式（讓 AI 自動執行，不需每次重新說明）</td></tr><tr><td>語意記憶</td><td>內部筆記</td><td>概念知識、工具評估、觀察事實</td></tr><tr><td>情節記憶</td><td>內部筆記 + 內部筆記</td><td>個人脈絡、來源材料、歷史決策記錄</td></tr><tr><td>判斷系統</td><td><strong>必須內化，不放 Vault</strong></td><td>批判性框架、個人核心立場、價值觀</td></tr></tbody></table>
+<table><thead><tr><th>大腦記憶系統</th><th>Vault 對應層</th><th>存放內容</th></tr></thead><tbody><tr><td>工作記憶</td><td>context window + 內部筆記 交接文件</td><td>當前任務脈絡、短期待辦</td></tr><tr><td>程序記憶</td><td><code>規則檔</code> + <code>延伸方向.md</code></td><td>AI 行為規則、工作模式（讓 AI 自動執行，不需每次重新說明）</td></tr><tr><td>語意記憶</td><td>內部筆記</td><td>概念知識、工具評估、觀察事實</td></tr><tr><td>情節記憶</td><td>內部筆記 + 內部筆記</td><td>個人脈絡、來源材料、歷史決策記錄</td></tr><tr><td>判斷系統</td><td><strong>必須內化，不放 Vault</strong></td><td>批判性框架、個人核心立場、價值觀</td></tr></tbody></table>
 <p><strong>分層外置的關鍵不是「存什麼」，而是「什麼東西要留在腦裡」</strong>。Vault 的成功標準不是存了多少，而是存進去的東西有沒有釋放腦容量去做更高階的判斷。</p>
 <hr>
 <h2>應用場景：「AI 不遺忘」是優勢嗎？</h2>
@@ -80,7 +80,7 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <hr>
 <h2>外部呼應：知識分層對抗「AI 資料爆炸」</h2>
 <p>與本頁的關係：本頁的分層問的是「<strong>什麼進腦、什麼進系統</strong>」（內化 vs 外置）；這篇補的是外置層<strong>內部的第二道分層——熱/冷分層＋語意去重</strong>，管「外置之後怎麼不被自己的資料淹死」。對 Vault 直接對應：冷熱分層＝<code>收件匣</code>(熱)→<code>Wiki 層</code>(溫)→內部筆記(冷)；語意去重＝入庫價值閘門的「重複/增量」判定＋<code>關鍵詞索引</code> 比對。</p>
-<p><strong>設計意涵</strong>：外置不是終點，外置物本身也需要分層與去重，否則「外置大腦」會退化成「外置垃圾場」——這條和 未公開筆記 引述 BASB「不要為整理而整理」的警告同向。</p>
+<p><strong>設計意涵</strong>：外置不是終點，外置物本身也需要分層與去重，否則「外置大腦」會退化成「外置垃圾場」——這條和 延伸方向 引述 BASB「不要為整理而整理」的警告同向。</p>
 <hr>
 <h2>外部呼應：長上下文會退化（context rot）——為什麼是「蒸餾」不是「塞滿」</h2>
 <p><strong>（2026-06-27，Threads「建立知識庫」討論串多人獨立提到）</strong> 把所有東西塞進 AI 的上下文，品質不會更好、反而更差。外部創作者：「（同一個 chat）討論了一年，AI 應該開始失智了，這是限制，所有 AI 工具都一樣」；外部創作者.news：「80 萬 token 很大欸…每次都要讀 80 萬上下文，浪費 token…模型失智的問題也會很明顯」。社群實務觀察是：把重要的<strong>蒸餾成精簡 markdown 帶著走</strong>，而不是整包對話塞給下一個模型。</p>
@@ -90,7 +90,7 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <h2>外部呼應：AI 成為內容介面——被吃掉的是「可濃縮層」（2026-07-01 增量）</h2>
 <p><strong>（Tim Ferriss "Has AI Already Killed How-To Nonfiction?" tim.blog 2026-06-12，原文核對）</strong> Tim 用 BookScan 帳單給了這個原則一個市場端的實證：他五本書的美國紙本銷量 2026 較 2022 累積約 <strong>−80%</strong>（2026 年減速率 −57% vs 2025），與 LLM 爆發同期。他列出若干可能因素（景氣、閱讀習慣變化等），但傾向認為主因是 <strong>LLM 正在成為所有內容的「介面」</strong>——大眾第一時間拿到的是 AI 過濾後的摘要，不再直接碰第一手的書／blog／課程。被吃掉的是「15 秒能給答案、可被濃縮」的那一層內容。</p>
 <p>與本頁的關係：這從<strong>市場端</strong>佐證了 2×2 的 🟢 公開事實層與〈回應「知識庫無用論」〉——AI 濃縮掉的，正是「未經轉化的公開結論層」（那層本就該外置、本就是 commodity）。而 Tim 說<strong>沒死的是「聲音、品味、個性、真實故事、具體數字、某個時刻的真實判斷」</strong>——這幾乎逐項對上本頁的 🔴 高轉化必須內化層與「個人庫＝轉化引擎的產物」。換句話說，一個外部作者從銷售數據反推出的存活條件，和本頁從認知科學推出的內化條件同構：<strong>可濃縮的公開層會被 AI 吃掉，不可濃縮的轉化／判斷層才是護城河。</strong></p>
-<p><strong>設計意涵</strong>：對個人庫——別把庫當公開資訊倉庫（那層必被 AI 取代），要當轉化引擎（呼應〈知識庫無用論〉回應）；對 FLUX Vault 線上課程——定位可直接打「AI 給你結論，給不了讓結論在你腦裡打進去的那個過程」，且這回有 Tim 的銷售數據當可引用的外部佐證（Tim 分析的是市場現象、並非為本課背書）。（精簡版讀者實驗的學習機制細節見 未公開筆記〈外部佐證：Tim Ferriss 的精簡版實驗〉。）</p>
+<p><strong>設計意涵</strong>：對個人庫——別把庫當公開資訊倉庫（那層必被 AI 取代），要當轉化引擎（呼應〈知識庫無用論〉回應）；對 FLUX Vault 線上課程——定位可直接打「AI 給你結論，給不了讓結論在你腦裡打進去的那個過程」，且這回有 Tim 的銷售數據當可引用的外部佐證（Tim 分析的是市場現象、並非為本課背書）。（精簡版讀者實驗的學習機制細節見 延伸方向〈外部佐證：Tim Ferriss 的精簡版實驗〉。）</p>
 <hr>
 <h2>我的觀點</h2>
 <p>分層外置原則的根本問題不是「要不要外置」，而是「<strong>這個知識在我用到它的當下，需要多快、需要做多少加工</strong>」。問清楚這個問題，外置與否的決策就很明確。</p>
@@ -98,6 +98,6 @@ body.pg{margin:0;font-family:"PingFang TC","Noto Sans TC","Microsoft JhengHei",s
 <p>對 Vault 設計的意涵：外置的目的是<strong>釋放腦容量做更高階的事</strong>，不是把大腦的工作全部轉移出去。一個人用 Vault 的方式，反映了他對「什麼知識應該在哪裡」的理解——這本身是一個值得刻意設計的後設認知能力，也是 FLUX Vault 線上課程的核心論點之一。</p>
 <hr>
 <h2>相關概念</h2>
-<ul><li>未公開筆記 — 外置大腦是分層外置原則的物理實現；分層外置解答了「什麼應該外置」這個設計問題</li><li>未公開筆記 — 分層外置原則的人腦底層邏輯；記憶分層描述了大腦如何自然分配不同性質的記憶</li><li>未公開筆記 — 外置設計得當的知識，才能讓任何中斷後都能接續，不依賴腦內記憶</li></ul>
+<ul><li>延伸方向 — 外置大腦是分層外置原則的物理實現；分層外置解答了「什麼應該外置」這個設計問題</li><li>延伸方向 — 分層外置原則的人腦底層邏輯；記憶分層描述了大腦如何自然分配不同性質的記憶</li><li>延伸方向 — 外置設計得當的知識，才能讓任何中斷後都能接續，不依賴腦內記憶</li></ul>
 <hr>
 <p><em>建立：2026-06-05（Tier 2 概念頁；從個人化脈絡 v2.1「分層外置原則」立場擴展為完整概念框架；採用認知科學記憶分層系統作為底層邏輯；含 AI 不遺忘議題應用場景）</em></p></div></article><div class="afoot"><h3>相關筆記</h3><div class="relgrid"><a class="relcard" href="/notes/second-brain-design.html">🏛️ 外置大腦設計</a><a class="relcard" href="/notes/moat-thinking.html">🏛️ 護城河思維</a><a class="relcard" href="/notes/ai-video-pipeline.html">📚 AI 影片製作一條龍工作流</a><a class="relcard locked" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">🔒 更多還在城牆內 — 加入等待名單</a></div><div class="cta-wide"><a class="ctaBtn2" href="https://forms.gle/x3D7Nn4WsEygTNkU6" target="_blank" rel="noopener">加入等待名單 · 募資上線第一個通知你</a><a class="backmap" href="/">← 回知識城鎮地圖</a></div></div></main><footer class="site-footer"><div class="footinner"><a href="mailto:104s60603@gmail.com">104s60603@gmail.com</a><span class="fline">白澤 · 知識系統代建 · AI 工作流設計</span><span class="fcopy">© 2026 白澤 · baize.systems</span></div></footer></body></html>
